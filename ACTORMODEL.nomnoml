@@ -1,6 +1,4 @@
-[Rulesets
-	|POST /rulesets
-]
+[Rulesets|POST /rulesets]
 [Ruleset
 	|GET/PUT/DELETE /rulesets/{rulesetId}
     |string(50) Name
@@ -40,9 +38,7 @@
 	|string(50) Name
     |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] InitialValues
 ]
-[Instances
-	|POST /rulesets/{rulesetId}/instances
-]
+[Instances|POST /rulesets/{rulesetId}/instances]
 [Instance
 	|GET/PUT/DELETE /rulesets/{rulesetId}/instances/{instanceId}
     |string(50) Name
