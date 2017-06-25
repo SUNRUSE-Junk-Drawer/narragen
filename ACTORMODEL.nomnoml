@@ -22,20 +22,20 @@
 	|GET/PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}
     |string(50) Name
 ]
+[Existings|POST /rulesets/{rulesetId}/rules/{ruleId}/existing]
 [Existing
-	|POST /rulesets/{rulesetId}/rules/{ruleId}/existing
     |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/existing/{existingId}
 	|string(50) Name
     |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] Set
 ]
+[Matches|POST /rulesets/{rulesetId}/rules/{ruleId}/matches]
 [Match
-	|POST /rulesets/{rulesetId}/rules/{ruleId}/matches
     |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/matches/{matchId}
 	|(ExistingId, GlobalId) Entity|AttributeId\[\] Attributes
     |(ExistingId, GlobalId) Value
 ]
+[Creates|POST /rulesets/{rulesetId}/rules/{ruleId}/creates]
 [Create
-	|POST /rulesets/{rulesetId}/rules/{ruleId}/creates
     |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/creates/{createId}
 	|string(50) Name
     |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] InitialValues
@@ -56,8 +56,11 @@
 [Globals] 1 -> * [Global]
 [Ruleset] 1 -> 1 [Rules]
 [Rules] 1 -> * [Rule]
-[Rule] 1 -> * [Existing]
-[Rule] 1 -> * [Match]
-[Rule] 1 -> * [Create]
+[Rule] 1 -> 1 [Existings]
+[Existings] 1 -> * [Existing]
+[Rule] 1 -> 1 [Matches]
+[Matches] 1 -> * [Match]
+[Rule] 1 -> 1 [Creates]
+[Creates] 1 -> * [Create]
 [Ruleset] 1 -> [Instances]
 [Instances] 1 -> * [Instance]
