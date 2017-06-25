@@ -23,14 +23,20 @@
     |string(50) Name
 ]
 [Existing
+	|POST /rulesets/{rulesetId}/rules/{ruleId}/existing
+    |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/existing/{existingId}
 	|string(50) Name
     |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] Set
 ]
 [Match
+	|POST /rulesets/{rulesetId}/rules/{ruleId}/matches
+    |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/matches/{matchId}
 	|(ExistingId, GlobalId) Entity|AttributeId\[\] Attributes
     |(ExistingId, GlobalId) Value
 ]
 [Create
+	|POST /rulesets/{rulesetId}/rules/{ruleId}/creates
+    |PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}/creates/{createId}
 	|string(50) Name
     |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] InitialValues
 ]
