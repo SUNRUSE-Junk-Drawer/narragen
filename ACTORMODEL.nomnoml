@@ -1,0 +1,57 @@
+[Rulesets
+	|POST /rulesets
+]
+[Ruleset
+	|GET/PUT/DELETE /rulesets/{rulesetId}
+    |string(50) Name
+    |string(250) Description
+]
+[Attributes|POST /rulesets/{rulesetId}/attributes]
+[Attribute
+	|PUT/DELETE /rulesets/{rulesetId}/attributes/{attributeId}
+    |string(50) Name
+    |GlobalId DefaultValue]
+[Globals|POST /rulesets/{rulesetId}/globals]
+[Global
+	|PUT/DELETE /rulesets/{rulesetId}/globals/{globalId}
+    |string(50) Name
+    |(AttributeId -> GlobalId)\[\] InitialValues
+]
+[Rules|POST /rulesets/{rulesetId}/rules]
+[Rule
+	|GET/PUT/DELETE /rulesets/{rulesetId}/rules/{ruleId}
+    |string(50) Name
+]
+[Existing
+	|string(50) Name
+    |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] Set
+]
+[Match
+	|(ExistingId, GlobalId) Entity|AttributeId\[\] Attributes
+    |(ExistingId, GlobalId) Value
+]
+[Create
+	|string(50) Name
+    |(AttributeId -> (ExistingId, GlobalId, CreatedId))\[\] InitialValues
+]
+[Instances
+	|POST /rulesets/{rulesetId}/instances
+]
+[Instance
+	|GET/PUT/DELETE /rulesets/{rulesetId}/instances/{instanceId}
+    |string(50) Name
+    |(GlobalId -> AttributeId -> GlobalId)\[\] TripleStore
+]
+
+[Rulesets] 1 -> * [Ruleset]
+[Ruleset] 1 -> 1 [Attributes]
+[Attributes] 1 -> * [Attribute]
+[Ruleset] 1 -> 1 [Globals]
+[Globals] 1 -> * [Global]
+[Ruleset] 1 -> 1 [Rules]
+[Rules] 1 -> * [Rule]
+[Rule] 1 -> * [Existing]
+[Rule] 1 -> * [Match]
+[Rule] 1 -> * [Create]
+[Ruleset] 1 -> [Instances]
+[Instances] 1 -> * [Instance]
