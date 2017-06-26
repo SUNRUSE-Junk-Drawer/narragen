@@ -4,6 +4,19 @@ info:
   description: Procedural Generation through Recursive Triple-Store Pattern Matching
   version: "0.0.0"
 basePath: /api
+definitions:
+  400schema:
+    type: object
+    additionalProperties: false
+    required: [code]
+    properties:
+      code:
+        description: A code describing why the request could not be processed.
+        type: string
+        enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted]
+      path:
+        description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
+        type: string
 paths:
   /rulesets:
     post:
@@ -42,17 +55,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
   /rulesets/{rulesetId}:
     get:
       description: Retrieves a previously created ruleset.
@@ -177,17 +180,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId was not recognized.
         410:
@@ -248,17 +241,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId was not recognized.
         410:
@@ -302,17 +285,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or attributeId was not recognized.
         410:
@@ -391,17 +364,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId was not recognized.
         410:
@@ -457,17 +420,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or globalId was not recognized.
         410:
@@ -535,17 +488,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId was not recognized.
         410:
@@ -728,17 +671,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or ruleId was not recognized.
         410:
@@ -824,17 +757,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or ruleId was not recognized.
         410:
@@ -897,17 +820,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId, ruleId or existingId was not recognized.
         410:
@@ -999,17 +912,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or ruleId was not recognized.
         410:
@@ -1072,17 +975,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId, ruleId or matchId was not recognized.
         410:
@@ -1174,17 +1067,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or ruleId was not recognized.
         410:
@@ -1247,17 +1130,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText, notRecognized, deleted, mustBeUnique]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId, ruleId or createId was not recognized.
         410:
@@ -1326,17 +1199,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId was not recognized.
         410:
@@ -1439,17 +1302,7 @@ paths:
         400:
           description: The request is not valid.
           schema:
-            type: object
-            additionalProperties: false
-            required: [code]
-            properties:
-              code:
-                description: A code describing why the request could not be processed.
-                type: string
-                enum: [invalidJson, required, tooShort, tooLong, invalidText]
-              path:
-                description: When the error concerns a specific field, the JavaScript-style path to that field, i.e. items[0].name.
-                type: string
+            $ref: "#/definitions/400schema"
         404:
           description: rulesetId or instanceId was not recognized.
         410:
