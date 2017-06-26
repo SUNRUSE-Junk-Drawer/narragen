@@ -5,6 +5,20 @@ info:
   version: "0.0.0"
 basePath: /api
 definitions:
+  attributeBody:
+    type: object
+    additionalProperties: false
+    required: [name, defaultValueGlobalId]
+    properties:
+      name:
+        description: The user-given name of this attribute.
+        type: string
+        pattern: /^\S$|^\S.*\S$/
+        maxLength: 50
+      defaultValueGlobalId:
+        description: The id of the global variable to use as a default value for this attribute.
+        type: string
+        format: uuid
   400schema:
     type: object
     additionalProperties: false
@@ -213,19 +227,7 @@ paths:
         in: body
         description: The information to use in the new attribute.
         schema:
-          type: object
-          additionalProperties: false
-          required: [name, defaultValueGlobalId]
-          properties:
-            name:
-              description: The user-given name of this attribute.
-              type: string
-              pattern: /^\S$|^\S.*\S$/
-              maxLength: 50
-            defaultValueGlobalId:
-              description: The id of the global variable to use as a default value for this attribute.
-              type: string
-              format: uuid
+          $ref: "#/definitions/attributeBody"
       responses:
         200:
           description: An attribute has been successfully created.
@@ -266,19 +268,7 @@ paths:
         in: body
         description: The information to use to update the attribute.
         schema:
-          type: object
-          additionalProperties: false
-          required: [name, defaultValueGlobalId]
-          properties:
-            name:
-              description: The user-given name of this attribute.
-              type: string
-              pattern: /^\S$|^\S.*\S$/
-              maxLength: 50
-            defaultValueGlobalId:
-              description: The id of the global variable to use as a default value for this attribute.
-              type: string
-              format: uuid
+          $ref: "#/definitions/attributeBody"
       responses:
         204:
           description: The attribute has been successfully updated.
