@@ -19,6 +19,32 @@ definitions:
         description: The id of the global variable to use as a default value for this attribute.
         type: string
         format: uuid
+  globalBody:
+    type: object
+    additionalProperties: false
+    required: [name, initialValues]
+    properties:
+      name:
+        description: The user-given name of this global variable.
+        type: string
+        pattern: /^\S$|^\S.*\S$/
+        maxLength: 50
+      initialValues:
+        description: The initial values of the attributes of this global variable.
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required: [attributeId, valueGlobalId]
+          properties:
+            attributeId:
+              description: The id of the attribute to define an initial value of for this global variable.
+              type: string
+              format: uuid
+            valueGlobalId:
+              description: The id of the global variable to assign this attribute to for this global variable.
+              type: string
+              format: uuid
   400schema:
     type: object
     additionalProperties: false
@@ -314,31 +340,7 @@ paths:
         in: body
         description: The information to use in the new global variable.
         schema:
-          type: object
-          additionalProperties: false
-          required: [name, initialValues]
-          properties:
-            name:
-              description: The user-given name of this global variable.
-              type: string
-              pattern: /^\S$|^\S.*\S$/
-              maxLength: 50
-            initialValues:
-              description: The initial values of the attributes of this global variable.
-              type: array
-              items:
-                type: object
-                additionalProperties: false
-                required: [attributeId, valueGlobalId]
-                properties:
-                  attributeId:
-                    description: The id of the attribute to define an initial value of for this global variable.
-                    type: string
-                    format: uuid
-                  valueGlobalId:
-                    description: The id of the global variable to assign this attribute to for this global variable.
-                    type: string
-                    format: uuid
+          $ref: "#/definitions/globalBody"
       responses:
         200:
           description: A global variable has been successfully created.
@@ -379,31 +381,7 @@ paths:
         in: body
         description: The information to use to update the global variable.
         schema:
-          type: object
-          additionalProperties: false
-          required: [name, initialValues]
-          properties:
-            name:
-              description: The user-given name of this global variable.
-              type: string
-              pattern: /^\S$|^\S.*\S$/
-              maxLength: 50
-            initialValues:
-              description: The initial values of the attributes of this global variable.
-              type: array
-              items:
-                type: object
-                additionalProperties: false
-                required: [attributeId, valueGlobalId]
-                properties:
-                  attributeId:
-                    description: The id of the attribute to define an initial value of for this global variable.
-                    type: string
-                    format: uuid
-                  valueGlobalId:
-                    description: The id of the global variable to assign this attribute to for this global variable.
-                    type: string
-                    format: uuid
+          $ref: "#/definitions/globalBody"
       responses:
         204:
           description: The global variable has been successfully updated.
