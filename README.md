@@ -1,5 +1,5 @@
-# PGRTSPM
-Procedural Generation through Recursive Triple-Store Pattern Matching
+# Narragen
+Procedural narrative generation through recursive triple-store pattern matching.
 
 An implementation of some of the ideas in [Rogelio E. Cardona-Rivera and Chris Martens' talk on Procedural Narrative Generation](https://youtu.be/k2rgzZ2WXKo).
 
