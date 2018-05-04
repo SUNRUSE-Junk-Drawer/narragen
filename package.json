@@ -1,0 +1,5 @@
+{
+  "name": "narragen",
+  "displayName": "Narragen",
+  "description": "Procedural narrative generation through recursive triple-store pattern matching"
+}
