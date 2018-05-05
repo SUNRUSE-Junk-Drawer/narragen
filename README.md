@@ -1,6 +1,12 @@
 # Narragen
 Procedural narrative generation through recursive triple-store pattern matching.
 
+[![Travis](https://img.shields.io/travis/jameswilddev/narragen.svg)](https://travis-ci.org/jameswilddev/narragen)
+[![David](https://img.shields.io/david/jameswilddev/narragen.svg)](https://david-dm.org/jameswilddev/narragen)
+[![David](https://img.shields.io/david/dev/jameswilddev/narragen.svg)](https://david-dm.org/jameswilddev/narragen?type=dev)
+[![Coveralls github](https://img.shields.io/coveralls/github/jameswilddev/narragen.svg)](https://coveralls.io/github/jameswilddev/narragen)
+[![license](https://img.shields.io/github/license/jameswilddev/narragen.svg)](https://github.com/jameswilddev/narragen/blob/master/licence)
+
 An implementation of some of the ideas in [Rogelio E. Cardona-Rivera and Chris Martens' talk on Procedural Narrative Generation](https://youtu.be/k2rgzZ2WXKo).
 
 All state is stored in a triple-store; this means that all information is stored
