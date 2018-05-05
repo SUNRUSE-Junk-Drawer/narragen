@@ -3,5 +3,7 @@
   "spec_files": [
     "*.js"
   ],
-  "helpers": []
+  "helpers": [
+    "support/rewire.js"
+  ]
 }
