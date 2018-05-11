@@ -4,7 +4,7 @@
   "description": "Procedural narrative generation through recursive triple-store pattern matching",
   "scripts": {
     "start": "npm install && chokidar src/**.js spec/**.js --initial --command \"npm-run-all babel test jshint\"",
-    "babel": "mkdirp dist && babel src --ignore src/header.js --out-file dist/index.js",
+    "babel": "mkdirp dist && babel src --out-file dist/index.js",
     "test": "nyc --check-coverage --lines 100 --functions 100 --branches 100 --statements 100 --include dist/index.js jasmine",
     "jshint": "babel-node ./concat-jshint.js && jshint dist/jshint.js",
     "upload-coverage": "nyc report --reporter=text-lcov | coveralls"
