@@ -1,6 +1,7 @@
 const rewire = require("rewire")
 const index = rewire("./index")
 
+global.index = index
 global.get = name => index.__get__(name)
 global.set = (name, valueFactory) => {
   let replaced

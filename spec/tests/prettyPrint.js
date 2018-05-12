@@ -1,4 +1,5 @@
 describe("prettyPrint", () => {
+  it("is exported", () => expect(index.prettyPrint).toBe(get("prettyPrint")))
   const prettyPrintStatement = jasmine.createSpy("prettyPrintStatement")
   set("prettyPrintStatement", () => prettyPrintStatement)
   prettyPrintStatement.and.callFake(statement => {
