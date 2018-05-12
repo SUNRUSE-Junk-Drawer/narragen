@@ -15,7 +15,8 @@
     "babel-helpers": "babel dist/helpers.js --out-file dist/helpers.js",
     "babel-tests": "babel dist/tests.js --out-file dist/tests.js",
     "jasmine": "nyc --check-coverage --lines 100 --functions 100 --branches 100 --statements 100 --include dist/index.js jasmine",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "uglify": "uglifyjs --compress --mangle --toplevel --output dist/index.min.js -- dist/index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
@@ -29,6 +30,7 @@
     "jshint": "^2.9.5",
     "npm-run-all": "^4.1.2",
     "nyc": "^11.7.1",
-    "rewire": "^4.0.1"
+    "rewire": "^4.0.1",
+    "uglify-js": "^3.3.24"
   }
 }

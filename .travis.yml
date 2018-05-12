@@ -17,3 +17,4 @@ script:
   - npm run-script babel-tests
   - npm run-script jasmine
   - npm run-script coveralls
+  - npm run-script uglify
