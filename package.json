@@ -33,7 +33,6 @@
     "decache": "^4.4.0",
     "jasmine": "^3.1.0",
     "jshint": "^2.9.5",
-    "npm-run-all": "^4.1.2",
     "nyc": "^11.7.1",
     "rewire": "^4.0.1",
     "uglify-js": "^3.3.24"
