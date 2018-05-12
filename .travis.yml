@@ -5,7 +5,15 @@ node_js:
 install:
   - npm install
 script:
-  - npm run-script babel
-  - npm test
-  - npm run-script jshint
-  - npm run-script upload-coverage
+  - npm run-script make-dist
+  - npm run-script concatenate-module
+  - npm run-script concatenate-helpers
+  - npm run-script concatenate-tests
+  - npm run-script jshint-module
+  - npm run-script jshint-helpers
+  - npm run-script jshint-tests
+  - npm run-script babel-module
+  - npm run-script babel-helpers
+  - npm run-script babel-tests
+  - npm run-script jasmine
+  - npm run-script coveralls

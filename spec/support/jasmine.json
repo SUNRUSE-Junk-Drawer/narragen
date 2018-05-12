@@ -1,9 +1,9 @@
 {
-  "spec_dir": "spec",
+  "spec_dir": "dist",
   "spec_files": [
-    "*.js"
+    "tests.js"
   ],
   "helpers": [
-    "support/rewire.js"
+    "helpers.js"
   ]
 }

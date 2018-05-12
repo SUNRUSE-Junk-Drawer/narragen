@@ -1,5 +1,5 @@
 const rewire = require("rewire")
-const index = rewire("../../dist/index")
+const index = rewire("./index")
 
 global.get = name => index.__get__(name)
 global.set = (name, valueFactory) => {
