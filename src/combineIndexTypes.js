@@ -17,4 +17,4 @@ const combineIndexTypes = (a, b) => {
       return "inverted"
   }
   return b
-}  
+}

@@ -10,7 +10,7 @@ Procedural narrative generation through recursive triple-store pattern matching.
 An implementation of some of the ideas in [Rogelio E. Cardona-Rivera and Chris Martens' talk on Procedural Narrative Generation](https://youtu.be/k2rgzZ2WXKo).
 
 All state is stored in a triple-store; this means that all information is stored
-as an entity, an attribute of that entity, and the value of that attribute of 
+as an entity, an attribute of that entity, and the value of that attribute of
 that entity.  For example:
 
 - car-color-red
@@ -47,8 +47,8 @@ Set Spider Location To Kitchen
 
 Now, let's link the rooms together.
 To do this, we'll create objects which connect two rooms.
-Here, we create a pair of objects connecting the living room and kitchen 
-together (one for each direction) and another pair connecting the kitchen and 
+Here, we create a pair of objects connecting the living room and kitchen
+together (one for each direction) and another pair connecting the kitchen and
 dining room.
 
 ```
@@ -83,7 +83,7 @@ In the initial state, this rule can match in two different ways:
 - Wanderer = Spider, Link = Stairs-A.
 - Wanderer = Spider, Link = Door-A.
 
-A match will be picked at random, changing Spider's Location to Living-Room in 
+A match will be picked at random, changing Spider's Location to Living-Room in
 the first case, and Dining-Room in the second case.
 
 The rules will then be re-evaluated based on that new state.
@@ -166,7 +166,7 @@ End
 
 Everything which has not yet been set is Nothing.
 
-Once Spider HasEaten is set, this rule no longer applies; as such, Spider will 
+Once Spider HasEaten is set, this rule no longer applies; as such, Spider will
 only eat one thing.
 
 Let's add some food Spider will not eat.  Spider has a sweet tooth and won't eat
