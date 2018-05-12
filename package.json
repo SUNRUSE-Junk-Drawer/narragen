@@ -3,6 +3,10 @@
   "displayName": "Narragen",
   "description": "Procedural narrative generation through recursive triple-store pattern matching",
   "version": "0.0.0",
+  "main": "dist/index.min.js",
+  "files": [
+    "dist/index.min.js"
+  ],
   "scripts": {
     "start": "npm install && babel-node watch.js",
     "make-dist": "mkdirp dist",
