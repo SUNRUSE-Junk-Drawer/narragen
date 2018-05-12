@@ -42,7 +42,7 @@ const concatenateAndHint = (root, writeTo, done) => {
   const finishedPath = () => {
     remainingPaths--
     if (remainingPaths) return
-    const concatenated = source.join("\n")
+    const concatenated = source.join("")
     console.log("Reading JSHint configuration...")
     readFile(".jshintrc", { encoding: "utf8" }, (err, jshintConfig) => {
       if (err) {
