@@ -271,3 +271,58 @@ when eater type is character
 set eaten type to crumbs
   and eater hasEaten to eaten
 ```
+
+## Implementation
+
+Inspired by the [LMAX architecture](https://martinfowler.com/articles/lmax.html),
+the entire database/rules engine runs entirely in-memory, with instructions
+(selecting a rule and its arguments) piped into a thread which verifies that the
+rule and its arguments match, and then apply its effects.
+
+### Rule search
+
+Searching for a rule and corresponding arguments is done as though every
+possible rule and argument set is generated, and one is then picked at random.
+
+In the above example script, the initial possiblities are:
+
+| rule   | wanderer | passage | eater | eaten |
+| ------ | -------- | ------- | ----- | ----- |
+| wander | spider   | doorA   |       |       |
+| wander | spider   | stairsA |       |       |
+
+If the second option were to be picked (the spider is now in the livingRoom with
+the biscuit), the next set of possibilities would be:
+
+| rule   | wanderer | passage | eater  | eaten   |
+| ------ | -------- | ------- | ------ | ------- |
+| wander | spider   | stairsB |        |         |
+| eat    |          |         | spider | biscuit |
+
+In practice, the implementation would count the possible permutations of each
+rule, then work backwards to determine what the arguments would be.
+
+This could be done in its own thread without locking if the in-memory database
+design is sufficiently robust.
+
+### In-memory database
+
+While the modification of the in-memory database happens in a strictly single
+threaded manner (both argument verification and application of effects) other
+threads will be reading the same data at the same time, and as such, the data
+must be organized in such a way that it can be safely read and written without
+any locking.
+
+This means that while data can be allocated or changed atomically, it can never
+be safely deleted or moved (such as realloc), as such actions may cause another
+thread to read freed memory.
+
+Entities themselves are a 32-bit incrementing integer ID, where "nothing" is 0.
+
+The forward index of attribute values is a 65536-item array of pointers to
+65536-item arrays of values.  This means that:
+
+- While a small amount of memory is allocated up-front, the full 16GB of values
+  per entity is not allocated up-front.
+- Nothing ever needs to be resized, which means that pointers never change; new
+  pages are only allocated, initialized, then added to the "master" array.
