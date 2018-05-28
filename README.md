@@ -57,7 +57,7 @@ random to procedurally generate data.
 
 ## Example script
 
-The defdinition of a basic environment; three entities describing rooms, which
+The definition of a basic environment; three entities describing rooms, which
 are linked by entities describing doors and stairs (in pairs denoting opposite
 directions):
 
