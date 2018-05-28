@@ -326,3 +326,9 @@ The forward index of attribute values is a 65536-item array of pointers to
   per entity is not allocated up-front.
 - Nothing ever needs to be resized, which means that pointers never change; new
   pages are only allocated, initialized, then added to the "master" array.
+
+Inverted indices, on the other hand, are implemented using linked lists; this
+means that reading from them is slower than forward indices, but the time
+complexity improvement when searching for entities with matching attribute
+values (such as two entities in the same location) far outweighs the performance
+costs.
