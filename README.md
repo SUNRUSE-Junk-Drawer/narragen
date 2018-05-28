@@ -7,6 +7,8 @@ Procedural narrative generation through recursive triple-store pattern matching.
 [![Coveralls github](https://img.shields.io/coveralls/github/jameswilddev/narragen.svg)](https://coveralls.io/github/jameswilddev/narragen)
 [![license](https://img.shields.io/github/license/jameswilddev/narragen.svg)](https://github.com/jameswilddev/narragen/blob/master/licence)
 
+## Concept
+
 An implementation of some of the ideas in [Rogelio E. Cardona-Rivera and Chris Martens' talk on Procedural Narrative Generation](https://youtu.be/k2rgzZ2WXKo).
 
 All state is stored in a triple-store; this means that all information is stored
@@ -16,181 +18,256 @@ that entity.  For example:
 - car-color-red
 - hero-location-cave
 
-Rules define:
-
-- A set of conditions which existing objects must meet for the rule to execute.
-- A list of new objects to create.
-- A list of changes to make to the existing/new objects.
-
-Additionally, global objects may be defined which exist from the start.
-
-An example file, which defines:
-
-- A living room.
-- A kitchen.
-- A dining room.
-- A spider.
+Rules look for patterns in the data, and can make changes to it based on those
+patterns:
 
 ```
-Create Living-Room
-Create Kitchen
-Create Dining-Room
-
-Create Spider
+            .---------------------.
+            |        Rule         |
+.------.    |---------.-----------|
+| Data | -> | Pattern | Effect(s) |
+'------'    '---------'-----------'
+    ^._____________________.'
 ```
 
-Next, we put the spider in the living room:
+The pattern is a graph of things which are related, such as:
 
 ```
-Set Spider Location To Kitchen
+eater hasEaten -> nothing (constant)
+      type -----> actor (constant)
+      location -> place
+      hates NOT     ^
+  .----------'      |
+  v                 |
+eaten location -----'
+      type -----> food (constant)
 ```
 
-Now, let's link the rooms together.
-To do this, we'll create objects which connect two rooms.
-Here, we create a pair of objects connecting the living room and kitchen
-together (one for each direction) and another pair connecting the kitchen and
-dining room.
+Then, a set of assignments to make to the things matched in the pattern:
 
 ```
-Create Stairs-A
-Set Stairs-A From-Room To Kitchen
-Set Stairs-A To-Room To Living-Room
-
-Create Stairs-B
-Set Stairs-B From-Room To Living-Room
-Set Stairs-B To-Room To Kitchen
-
-Create Door-A
-Set Door-A From-Room To Kitchen
-Set Door-A To-Room To Dining-Room
-
-Create Door-B
-Set Door-B From-Room To Dining-Room
-Set Door-B To-Room To Kitchen
+eater hasEaten
+  .--------'
+  v
+eaten type -> crumbs (constant)
 ```
 
-Now, let's create a rule which allows the spider to wander from room to room.
+This allows for a set of simple rules to be produced, which can be applied at
+random to procedurally generate data.
+
+## Example script
+
+The defdinition of a basic environment; three entities describing rooms, which
+are linked by entities describing doors and stairs (in pairs denoting opposite
+directions):
 
 ```
-Rule Wander
-When Wanderer Location Is Link From-Room
-Set Wanderer Location To Link To-Room
-End
+define stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+define stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+define doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+define doorB
+  fromRoom diningRoom
+  toRoom kitchen
 ```
 
-In the initial state, this rule can match in two different ways:
-
-- Wanderer = Spider, Link = Stairs-A.
-- Wanderer = Spider, Link = Door-A.
-
-A match will be picked at random, changing Spider's Location to Living-Room in
-the first case, and Dining-Room in the second case.
-
-The rules will then be re-evaluated based on that new state.
-
-Let's create another object:
+This could be illustrated as:
 
 ```
-Create Biscuit
-Set Biscuit Location To Dining-Room
+      livingRoom <--.
+                     |
+  stairsA toRoom ---'|
+ .------- fromRoom   |
+|                    |
+| stairsB fromRoom -'
+|.------- toRoom
+|
+ '--> kitchen <-----.
+                     |
+  doorA fromRoom ---'|
+ .----- toRoom       |
+|                    |
+| doorB toRoom -----'
+|.----- fromRoom
+|
+ '--> diningRoom
 ```
 
-If we run the game now, something a little weird will happen.
-Biscuit meets all criteria needed to be a Wanderer in the rule we just created!
-This means that both the Spider and Biscuit will roam the three rooms at random.
-
-We need a way of distinguishing what can wander.
-For this, create a new object, and give Spider a reference to it:
+Next, a spider is added to the kitchen:
 
 ```
-Create Actor
-Set Spider Type To Actor
+define spider
+  location kitchen
 ```
 
-Now, update the rule so that only Actors can wander:
+The graph now looks like this:
 
 ```
-Rule Wander
-When Wanderer Type Is Actor
-And Wanderer Location Is Link From-Room
-Set Wanderer Location To Link To-Room
-End
+      livingRoom <--.
+                     |
+  stairsA toRoom ---'|
+ .------- fromRoom   |
+|                    |
+| stairsB fromRoom -'
+|.------- toRoom       spider location -.
+|                                        |
+ '--> kitchen <------.------------------'
+                     |
+  doorA fromRoom ---'|
+ .----- toRoom       |
+|                    |
+| doorB toRoom -----'
+|.----- fromRoom
+|
+ '--> diningRoom
 ```
 
-Now, only Spider, and not Biscuit, can move between rooms.
-
-So let's add another rule, so that on finding Biscuit, Spider can eat:
+Next, a rule is written to allow the spider to wander between rooms:
 
 ```
-Create Food
-Create Crumbs
-Set Biscuit Type To Food
-
-Rule Eat
-When Eater Type Is Actor
-And Eaten Type Is Food
-And Eater Location Is Eaten Location
-Set Eaten Type To Crumbs
-End
+when wanderer location is passage fromRoom
+set wanderer location to passage toRoom
 ```
 
-When Spider wanders into Dining-Room, there is an equal probability that it will
-eat Biscuit or exit via Door-B to Kitchen.
+This rule, in the default state, has two possible applications:
 
-Let's create another thing Spider can eat.
+| possibility | wanderer | passage | wanderer location therefore |
+| ----------- | -------- | ------- | --------------------------- |
+| a           | spider   | doorA   | diningRoom                  |
+| b           | spider   | stairsA | livingRoom                  |
 
-```
-Create Cake
-Set Cake Type To Food
-```
-
-Now, Spider will eventually find and eat both Foods.
-
-However, Spider isn't very hungry.  In fact, just the one meal will do!
-
-Let's make some changes to the Eat rule so that:
-
-- We record against the Eater that they have eaten something.
-- The Eater will not eat again if they have previously eaten something.
+Graph of possibility a:
 
 ```
-Rule Eat
-When Eater Type Is Actor
-And Eater HasEaten Is Nothing
-And Eaten Type Is Food
-And Eater Location Is Eaten Location
-Set Eaten Type To Crumbs
-And Eater HasEaten To Eaten
-End
+      livingRoom <--.
+                     |
+  stairsA toRoom ---'|
+ .------- fromRoom   |
+|                    |
+| stairsB fromRoom -'
+|.------- toRoom       spider location -.
+|                                        |
+ '--> kitchen <------.                   |
+                     |                   |
+  doorA fromRoom ---'|                   |
+ .----- toRoom       |                   |
+|                    |                   |
+| doorB toRoom -----'                    |
+|.----- fromRoom                         |
+|                                        |
+ '--> diningRoom <----------------------'
 ```
 
-Everything which has not yet been set is Nothing.
-
-Once Spider HasEaten is set, this rule no longer applies; as such, Spider will
-only eat one thing.
-
-Let's add some food Spider will not eat.  Spider has a sweet tooth and won't eat
-veggies.
+Graph of possibility b:
 
 ```
-Create Broccoli
-Set Broccoli Type To Food
-
-Set Spider Hates To Broccoli
+      livingRoom <---.------------------.
+                     |                   |
+  stairsA toRoom ---'|                   |
+ .------- fromRoom   |                   |
+|                    |                   |
+| stairsB fromRoom -'                    |
+|.------- toRoom       spider location -'
+|
+ '--> kitchen <-----.
+                     |
+  doorA fromRoom ---'|
+ .----- toRoom       |
+|                    |
+| doorB toRoom -----'
+|.----- fromRoom
+|
+ '--> diningRoom
 ```
 
-We can check that two things are NOT equal like so:
+Repeatedly applying this pattern will see the spider randomly wander between the
+three locations.
+
+Addition of another object:
 
 ```
-Rule Eat
-When Eater Type Is Actor
-And Eater HasEaten Is Nothing
-And Eaten Type Is Food
-And Eater Location Is Eaten Location
-And Eater Hates Is Not Eaten
-Set Eaten Type To Crumbs
-And Eater HasEaten To Eaten
-End
+define biscuit
+  location livingRoom
 ```
 
-Now, Spider will only Eat things which are not Broccoli.
+With the current rule set, there is nothing in the current "wander" rule which
+excludes said entity; it fulfils all necessary criteria for it to run.
+Something must be added to distinguish the two:
+
+```
+define spider
+  location kitchen
+  type character
+
+define biscuit
+  location livingRoom
+  type food
+```
+
+And the "wander" rule amended to check that new attribute:
+
+```
+when wanderer location is passage fromRoom
+  and wanderer type is character
+set wanderer location to passage toRoom
+```
+
+A new rule to allow interaction between characters and food:
+
+```
+when eater type is character
+  and eaten type is food
+  and eater location is eaten location
+set eaten type to crumbs
+```
+
+Here, multiple rules must work together to produce an effect; the spider must
+"wander" into the livingRoom, then, as both the "wander" and "eat" rules would
+match, there is a chance it may eat the biscuit or exit back to the kitchen.
+
+It will only eat the biscuit once, as after, its type will no longer be "food".
+
+Adding more entities with a type of food to the world allows the "eat" rule to
+apply to that food as well:
+
+```
+define broccoli
+  location diningRoom
+  type food
+```
+
+The "eat" rule could then be amended to track what characters eat, preventing
+them eating more than one thing:
+
+```
+when eater type is character
+  and eater hasEaten is nothing
+  and eaten type is food
+  and eater location is eaten location
+set eaten type to crumbs
+  and eater hasEaten to eaten
+```
+
+Note that hasEaten is compared to "nothing" without having initialized it.  Any
+unassigned attribute has an initial value of "nothing".
+
+As an example of inequality, a special exemption could be added to the above
+rule to prevent eating of broccoli specifically:
+
+```
+when eater type is character
+  and eater hasEaten is nothing
+  and eaten type is food
+  and eater location is eaten location
+  and eaten is not broccoli
+set eaten type to crumbs
+  and eater hasEaten to eaten
+```
