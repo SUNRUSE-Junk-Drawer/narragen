@@ -279,6 +279,34 @@ the entire database/rules engine runs entirely in-memory, with instructions
 (selecting a rule and its arguments) piped into a thread which verifies that the
 rule and its arguments match, and then apply its effects.
 
+```
+.--------. ------> .---------------. -> (stdin) --> .--------------------------.
+| client |  (web)  | WebSocket API |                | Database (C application) |
+'--------' <------ '---------------' <- (stdout) <- '--------------------------'
+```
+
+```
+.-database (C application)-----------------------------------------------------------.
+|                                     .-mutate thread-----.                          |
+| stdin -> journal -> mutate queue -> | validate -> apply | -> event queue -> stdout |
+|   |         ^                       '-------------------'         ^                |
+|   |         |                           ^           ^             |                |
+|   |         |                           |           |             |                |
+|   |         |                            '- data <-'              |                |
+|   |         |                                |                    |                |
+|   |         |                           .----+-----+----.         |                |
+|   |         |                          |           |     |        |                |
+|   |         |                          v           v     |        |                |
+|   |         |                .-rule search thread -----. |        |                |
+|   |          '---------------| find arguments <- count | |        |                |
+|   |                          '-------------------------' |        |                |
+|   |                                                      v        |                |
+|   |                                   .-query thread pool----.    |                |
+|    '------------------ query queue -> |                      | --'                 |
+|                                       '----------------------'                     |
+'------------------------------------------------------------------------------------'
+```
+
 ### Rule search
 
 Searching for a rule and corresponding arguments is done as though every
