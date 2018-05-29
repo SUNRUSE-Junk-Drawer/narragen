@@ -360,3 +360,18 @@ means that reading from them is slower than forward indices, but the time
 complexity improvement when searching for entities with matching attribute
 values (such as two entities in the same location) far outweighs the performance
 costs.
+
+### Persistence
+
+[Event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) is the
+primary persistence mechanism in use.
+
+Every event to be processed by the mutate thread is first recorded in a journal.
+Then, on restarting the database application, the events which have changed the
+database can be replayed to rebuild the state from where it was last terminated.
+
+To prevent the journal growing forever and the database application therefore
+taking longer to load each time, a clean shutdown additionally takes a snapshot,
+wherein the forward indices are written directly to files, and then preceding
+journal entries and snapshots archived before being deleted.  Subsequent journal
+entries are then played on top of the latest snapshot during a restart.
