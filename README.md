@@ -326,3 +326,109 @@ The forward index of attribute values is a 65536-item array of pointers to
   per entity is not allocated up-front.
 - Nothing ever needs to be resized, which means that pointers never change; new
   pages are only allocated, initialized, then added to the "master" array.
+
+## NPM module
+
+### Parsing
+
+The parser is streaming; information is fed into the pipeline as it is known,
+and results generated as they are known.
+
+State is held at two levels; a shared state which can be interacted with by
+every file, and a state local to each file.  This is so that parser state can be
+maintained locally to each file, with final results collected in a central state
+repository.
+
+Example:
+
+```javascript
+import { start, newFile, text, endOfFile, endOfFiles } from "narragen"
+import { readdir, createReadStream } from "fs"
+import { join } from "path"
+
+const onNewFile = (sharedState, name) => `State local to file "${name}" which was built using shared state "${sharedState}"`
+const onToken = (fileState, token, starts) => console.log(`Token "${token}" starts at index ${starts} and is being processed using file state "${fileState}"`)
+const onEndOfFile = (fileState) => console.log(`File has ended with file state "${fileState}"`)
+const onEndOfFiles = (sharedState) => console.log(`All files have ended (shared state "${sharedState}")`)
+
+const parser = start("Test Shared State", onNewFile, onToken, onEndOfFile, onEndOfFiles)
+
+readdir(`./a/path/to/reactive-script/files`, (error, filenames) => {
+  if (error) throw error
+
+  filenames.forEach(filename => {
+    const file = newFile(parser, filename)
+    const stream = createReadStream(join("./a/path/to/reactive-script/files", filename), { encoding: `utf8` })
+    stream.on(`data`, data => text(file, data))
+    stream.on(`error`, error => { throw error })
+    stream.on(`close`, () => endOfFile(file))
+  })
+
+  endOfFiles(parser)
+})
+```
+
+#### start
+
+Creates and returns a new parser.
+
+Arguments:
+
+- A value to use as shared state for the parsing as a whole.
+- A callback to execute every time a new file is started, returning a value to
+  use as state for that particular file, with the arguments:
+  - The shared state.
+  - The name of the started file.
+- A callback to execute every time a token is found in a file, with the
+  arguments:
+  - The state for the file a token was found inside.
+  - The found token, as a string.
+  - The number of characters between the start of the file and the start of
+      the token.
+- A callback to execute every time a file ends, with the arguments:
+  - The state for the file which ended.
+- A callback to execute when every file has ended, with the arguments:
+  - The shared state.
+
+#### newFile
+
+Informs the parser of a newly found file, returning a file handle for it.
+
+Arguments:
+
+- The parser for which a file was found.
+- The name of the file.
+
+#### text
+
+Call when text has been read for a previously found file.
+
+Arguments:
+
+- The file handle for which text has been found.
+- The text read, as a string.
+
+#### character
+
+Call when a single character has been read for a previously found file.
+
+Arguments:
+
+- The file handle for which text has been found.
+- The character read, as a single-character string.
+
+#### endOfFile
+
+Call when the end of a previously found file has been reached.
+
+Arguments:
+
+- The file handle for which the end has been found.
+
+#### endOfFiles
+
+Call when no more files will be found.
+
+Arguments:
+
+- The parser for which no more files will be found.
