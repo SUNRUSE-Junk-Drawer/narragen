@@ -279,6 +279,34 @@ the entire database/rules engine runs entirely in-memory, with instructions
 (selecting a rule and its arguments) piped into a thread which verifies that the
 rule and its arguments match, and then apply its effects.
 
+```
+.--------. ------> .---------------. -> (stdin) --> .--------------------------.
+| client |  (web)  | WebSocket API |                | Database (C application) |
+'--------' <------ '---------------' <- (stdout) <- '--------------------------'
+```
+
+```
+.-database (C application)-----------------------------------------------------------.
+|                                     .-mutate thread-----.                          |
+| stdin -> journal -> mutate queue -> | validate -> apply | -> event queue -> stdout |
+|   |         ^                       '-------------------'         ^                |
+|   |         |                           ^           ^             |                |
+|   |         |                           |           |             |                |
+|   |         |                            '- data <-'              |                |
+|   |         |                                |                    |                |
+|   |         |                           .----+-----+----.         |                |
+|   |         |                          |           |     |        |                |
+|   |         |                          v           v     |        |                |
+|   |         |                .-rule search thread -----. |        |                |
+|   |          '---------------| find arguments <- count | |        |                |
+|   |                          '-------------------------' |        |                |
+|   |                                                      v        |                |
+|   |                                   .-query thread pool----.    |                |
+|    '------------------ query queue -> |                      | --'                 |
+|                                       '----------------------'                     |
+'------------------------------------------------------------------------------------'
+```
+
 ### Rule search
 
 Searching for a rule and corresponding arguments is done as though every
@@ -326,3 +354,24 @@ The forward index of attribute values is a 65536-item array of pointers to
   per entity is not allocated up-front.
 - Nothing ever needs to be resized, which means that pointers never change; new
   pages are only allocated, initialized, then added to the "master" array.
+
+Inverted indices, on the other hand, are implemented using linked lists; this
+means that reading from them is slower than forward indices, but the time
+complexity improvement when searching for entities with matching attribute
+values (such as two entities in the same location) far outweighs the performance
+costs.
+
+### Persistence
+
+[Event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) is the
+primary persistence mechanism in use.
+
+Every event to be processed by the mutate thread is first recorded in a journal.
+Then, on restarting the database application, the events which have changed the
+database can be replayed to rebuild the state from where it was last terminated.
+
+To prevent the journal growing forever and the database application therefore
+taking longer to load each time, a clean shutdown additionally takes a snapshot,
+wherein the forward indices are written directly to files, and then preceding
+journal entries and snapshots archived before being deleted.  Subsequent journal
+entries are then played on top of the latest snapshot during a restart.
