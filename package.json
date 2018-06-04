@@ -2,7 +2,7 @@
   "name": "narragen",
   "displayName": "Narragen",
   "description": "Procedural narrative generation through recursive triple-store pattern matching",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.min.js",
   "files": [
     "dist/index.min.js"
