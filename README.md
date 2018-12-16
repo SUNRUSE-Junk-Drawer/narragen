@@ -1,11 +1,5 @@
-# Narragen
+# Narragen [![Travis](https://img.shields.io/travis/jameswilddev/narragen.svg)](https://travis-ci.org/jameswilddev/narragen) [![License](https://img.shields.io/github/license/jameswilddev/narragen.svg)](https://github.com/jameswilddev/narragen/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fnarragen.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fnarragen?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 Procedural narrative generation through recursive triple-store pattern matching.
-
-[![Travis](https://img.shields.io/travis/jameswilddev/narragen.svg)](https://travis-ci.org/jameswilddev/narragen)
-[![David](https://img.shields.io/david/jameswilddev/narragen.svg)](https://david-dm.org/jameswilddev/narragen)
-[![David](https://img.shields.io/david/dev/jameswilddev/narragen.svg)](https://david-dm.org/jameswilddev/narragen?type=dev)
-[![Coveralls github](https://img.shields.io/coveralls/github/jameswilddev/narragen.svg)](https://coveralls.io/github/jameswilddev/narragen)
-[![license](https://img.shields.io/github/license/jameswilddev/narragen.svg)](https://github.com/jameswilddev/narragen/blob/master/licence)
 
 ## Concept
 
@@ -140,7 +134,7 @@ set wanderer location to passage toRoom
 This rule, in the default state, has two possible applications:
 
 | possibility | wanderer | passage | wanderer location therefore |
-| ----------- | -------- | ------- | --------------------------- |
+|-------------|----------|---------|-----------------------------|
 | a           | spider   | doorA   | diningRoom                  |
 | b           | spider   | stairsA | livingRoom                  |
 
@@ -315,7 +309,7 @@ possible rule and argument set is generated, and one is then picked at random.
 In the above example script, the initial possiblities are:
 
 | rule   | wanderer | passage | eater | eaten |
-| ------ | -------- | ------- | ----- | ----- |
+|--------|----------|---------|-------|-------|
 | wander | spider   | doorA   |       |       |
 | wander | spider   | stairsA |       |       |
 
@@ -323,7 +317,7 @@ If the second option were to be picked (the spider is now in the livingRoom with
 the biscuit), the next set of possibilities would be:
 
 | rule   | wanderer | passage | eater  | eaten   |
-| ------ | -------- | ------- | ------ | ------- |
+|--------|----------|---------|--------|---------|
 | wander | spider   | stairsB |        |         |
 | eat    |          |         | spider | biscuit |
 
@@ -375,3 +369,7 @@ taking longer to load each time, a clean shutdown additionally takes a snapshot,
 wherein the forward indices are written directly to files, and then preceding
 journal entries and snapshots archived before being deleted.  Subsequent journal
 entries are then played on top of the latest snapshot during a restart.
+
+## License
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fnarragen.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fnarragen?ref=badge_large)
