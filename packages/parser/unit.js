@@ -1,3 +1,19 @@
+const rewire = require("rewire")
+const index = rewire("./index.babel.js")
+
+const get = name => index.__get__(name)
+const set = (name, value) => {
+  let replaced
+  beforeEach(() => {
+    replaced = index.__get__(name)
+    index.__set__(name, value)
+  })
+  afterEach(() => {
+    index.__set__(name, replaced)
+  })
+  return value
+}
+
 describe(`parser`, () => {
   const onNewFile = jasmine.createSpy(`onNewFile`)
   onNewFile.and.returnValue(`Test File State`)

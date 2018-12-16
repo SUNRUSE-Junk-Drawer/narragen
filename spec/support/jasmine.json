@@ -1,9 +1,0 @@
-{
-  "spec_dir": "dist",
-  "spec_files": [
-    "tests.js"
-  ],
-  "helpers": [
-    "helpers.js"
-  ]
-}

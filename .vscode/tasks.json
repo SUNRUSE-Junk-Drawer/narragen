@@ -2,12 +2,32 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "start",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "label": "@narragen/parser - Install",
+      "type": "shell",
+      "command": "cd packages/parser && npm install",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "@narragen/parser - Watch",
+      "type": "shell",
+      "command": "npm run-script watch --prefix packages/parser",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "@narragen/parser - Compile",
+      "type": "shell",
+      "command": "npm run-script compile --prefix packages/parser",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "@narragen/parser - Test",
+      "type": "shell",
+      "command": "npm test --prefix packages/parser",
+      "group": "build",
+      "problemMatcher": []
     }
   ]
 }

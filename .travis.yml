@@ -1,28 +1,25 @@
+sudo: true
+dist: trusty
 language: node_js
-sudo: false
 node_js:
-  - "node"
-install:
-  - npm install
-script:
-  - npm run-script make-dist
-  - npm run-script concatenate-module
-  - npm run-script concatenate-helpers
-  - npm run-script concatenate-tests
-  - npm run-script jshint-module
-  - npm run-script jshint-helpers
-  - npm run-script jshint-tests
-  - npm run-script babel-module
-  - npm run-script babel-helpers
-  - npm run-script babel-tests
-  - npm run-script jasmine
-  - npm run-script coveralls
-  - npm run-script uglify
-deploy:
-  provider: npm
-  email: ${NPM_PUBLISH_EMAIL}
-  api_key: ${NPM_PUBLISH_TOKEN}
-  skip_cleanup: true
-  on:
-    branch: master
-    repo: jameswilddev/narragen
+- node
+jobs:
+  include:
+  - stage: "@narragen/parser"
+    install:
+    - npm install --prefix packages/parser
+    script:
+    - npm run-script compileBabel --prefix packages/parser
+    - npm run-script compileUglifyJs --prefix packages/parser
+    - npm test --prefix packages/parser
+    deploy:
+    - provider: script
+      script: echo $NPM_AUTH > ~/.npmrc && npm publish packages/parser
+      skip_cleanup: true
+      on:
+        branch: master
+        repo: jameswilddev/narragen
+env:
+  global:
+  - secure: YTZxNl11o/Eo7RI5vKvJwk/cMaFzzLmFboz3/m1Ah7i3P0S9jHafDaQGPCE8b3rnApB3iTl39iAvsBvrMrXEHxEs0mAM3ZImocAhGYqeJls6PaJaDPdj5HUZPrr/YORxxL8TmwgAt6sNL6nCKCEFSZiXhvxKdHG5f1WkSJCbegrs7D7Ky8u/1pMcjyjRPENvVEgARPGvKLXR7F7Z01RgCsg+5oT/NsO7tayVbT8TN5DnTjOLP9tn0WemnmsRtGMi09Q7M4bnUu74Fd+U74hqYoy9pJTXYZnqyTwMVWNHGb1+QCRO76J8JMKm4Aty1lYPO59FwsQP6weXIg6HnQbghNWhS7y7krl0YmxTSu91jSh/GfsZt/fIFOt3KR2LLDKJKDKQ2XEURGoyFqNGEXzYBeHP2uERDb8onVYkMbXFNPTKpE3r0V11H+5nZ9udI7Ktg2yjP+ZliLiYn2lUy8EGhv5dL5JUj3skxqHb7LgmZUrieKh9hlsfysrgf9Er6v9LDjHEpX4ZWbu+LrF2YU5+G8B9j76pfXhheL9Agti3/PqdLIeJklAiNYArPzBJP7WxXFUa1asezgQAQXvEk7sVXYRNZYFy1yfY5quhEHLMZ74gtkIYnhTKpV+VNvkm2YyNMi0exvaSYpTAcOg7MdJBvCEI066i2vAYTR68NG3DyQI=
+  - secure: k6IuS6ZJMbuMeUcSmRY7aL7X+rrr/M9mey8k3iR0ctUDGpx8FE/qnqMNLiRYV3+V0032cSy4vW5eH5HkYF9al532ZXFZP2KlDHH+vp4IDVmEDOsqJqwPtzVVvZYysWEakObTNWbQIvgAk3QxOHlG2aa7E3gTCoXyCh5aY7gtDH68RrRnqjOjnf9W+Ki4YWuoTzYb+u29OrGYwxzvBuyPuJobFYmLLxsJONSpRFIXjoXAI228PfnGIG6BNVgmhneU5rHcm0kC1KWedWqqCxXaCUhVpXrEW0y+X4QzHhCBuM8hTRsrZKmAIomplhzA1z9t7znHriOtPxalz9B5X6QdxJ5KDFbdifRxJP/t4KL5sfkv87tUjfDNVoxRaJ+Jq9jr+DOveyAPZui71snVSITu7gLsIHo3EUgDvDsQ5zIb6qmT75o9EtaenkNcj5FuszN6IoHh13pXBjwLE2fP0JpRuGz0bI4jHNdFwI/XG0RTfx6sS5khizd/uoiNjJ7q9aqwbFJg3qZsjQT0HZ6ZqmoYM0d3aOQNwzzuJgStH1xNMpkHVayg1HGgxz2Y4vAAfY9rUOKKFAW3uy/SRCkkZP/eVbzgGFQmhnnSkDFAZrIL2TSPasGnqUm7rPou3vXXNoBF2qz+vE08mUQRIT7C74MI50/oQIJtHFowtN3hTCAcOtc=
