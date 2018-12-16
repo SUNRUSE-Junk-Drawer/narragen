@@ -10,5 +10,11 @@
   "editor.formatOnType": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/*.min.js": true,
+    "**/*.babel.js": true,
+    "**/*.nyc_output": true
+  }
 }
