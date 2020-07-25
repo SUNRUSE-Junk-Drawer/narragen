@@ -31,9 +31,7 @@ The pattern is a graph of things which are related, such as:
 eater hasEaten -> nothing (constant)
       type -----> actor (constant)
       location -> place
-      hates NOT     ^
-  .----------'      |
-  v                 |
+                    ^
 eaten location -----'
       type -----> food (constant)
 ```
