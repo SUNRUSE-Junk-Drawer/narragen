@@ -1,4 +1,10 @@
 export type StatementParserSyntaxErrorType =
   | "expectedStatement"
   | "expectedName"
-  | "expectedGlobal";
+  | "expectedGlobal"
+  | "expectedLocal"
+  | "expectedAttribute"
+  | "expectedIs"
+  | "expectedAttributeOrEntity"
+  | "expectedGlobalOrLocal"
+  | "expectedAttributeOrIs";

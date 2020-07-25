@@ -50,6 +50,39 @@ export type StatementParserState<TNextState> = {
       localColumn: number,
       local: string
     ) => void;
+    readonly onRuleCondition: (
+      state: TNextState,
+      name: string,
+      entityALine: number,
+      entityAColumn: number,
+      entityA: string,
+      attributeALine: number,
+      attributeAColumn: number,
+      attributeA: string,
+      isLine: number,
+      isColumn: number,
+      entityBLine: number,
+      entityBColumn: number,
+      entityB: string
+    ) => void;
+    readonly onRuleConditionWithAttribute: (
+      state: TNextState,
+      name: string,
+      entityALine: number,
+      entityAColumn: number,
+      entityA: string,
+      attributeALine: number,
+      attributeAColumn: number,
+      attributeA: string,
+      isLine: number,
+      isColumn: number,
+      entityBLine: number,
+      entityBColumn: number,
+      entityB: string,
+      attributeBLine: number,
+      attributeBColumn: number,
+      attributeB: string
+    ) => void;
     readonly onSyntaxError: (
       state: TNextState,
       type: StatementParserSyntaxErrorType,
