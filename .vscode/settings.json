@@ -1,20 +1,24 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": false,
+  },
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.rulers": [
-    80
-  ],
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
+  "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
+  "files.eol": "\n",
   "files.exclude": {
-    "**/node_modules": true,
-    "**/*.min.js": true,
-    "**/*.babel.js": true,
-    "**/*.nyc_output": true
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "node_modules": true,
+    "**/*.js": true,
+    "**/*.d.ts": true,
+    ".nyc_output": true,
   }
 }

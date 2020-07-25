@@ -1,4 +1,4 @@
 node_modules
-*.min.js
-*.babel.js
 .nyc_output
+*.js
+*.d.ts
