@@ -57,6 +57,19 @@ are linked by entities describing doors and stairs (in pairs denoting opposite
 directions):
 
 ```
+# Create a global which represents "nothing".
+global nothing
+
+# Create attributes which can be used to define the origin and destination room of a passage, which default to the above nothing.
+attribute fromRoom nothing
+attribute toRoom nothing
+
+# Create three rooms.
+global livingRoom
+global kitchen
+global diningRoom
+
+# Link the rooms with passages.
 global stairsA
   fromRoom kitchen
   toRoom livingRoom
@@ -99,6 +112,34 @@ This could be illustrated as:
 Next, a spider is added to the kitchen:
 
 ```
+global nothing
+
+attribute fromRoom nothing
+attribute toRoom nothing
+
+global livingRoom
+global kitchen
+global diningRoom
+
+global stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+global stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+global doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+global doorB
+  fromRoom diningRoom
+  toRoom kitchen
+
+
+attribute location nothing
+
 global spider
   location kitchen
 ```
@@ -128,8 +169,51 @@ The graph now looks like this:
 Next, a rule is written to allow the spider to wander between rooms:
 
 ```
-when wanderer location is passage fromRoom
-set wanderer location to passage toRoom
+global nothing
+
+attribute fromRoom nothing
+attribute toRoom nothing
+
+global livingRoom
+global kitchen
+global diningRoom
+
+global stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+global stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+global doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+global doorB
+  fromRoom diningRoom
+  toRoom kitchen
+
+attribute location nothing
+
+global spider
+  location kitchen
+
+
+# Define a rule, with its name.
+rule wander
+
+  # These are "locals" - parameters to the rule.
+  # No two locals will refer to the same entity when a rule matches.
+  wanderer passage
+
+# This is a condition which must pass for the rule to execute.
+when
+  wanderer location is passage fromRoom
+
+# This applies a change to the entities matched.
+set
+  wanderer location to passage toRoom
 ```
 
 This rule, in the default state, has two possible applications:
@@ -189,39 +273,159 @@ three locations.
 Addition of another object:
 
 ```
+global nothing
+
+attribute fromRoom nothing
+attribute toRoom nothing
+
+global livingRoom
+global kitchen
+global diningRoom
+
+global stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+global stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+global doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+global doorB
+  fromRoom diningRoom
+  toRoom kitchen
+
+attribute location nothing
+
+global spider
+  location kitchen
+
+rule wander
+  wanderer passage
+when
+  wanderer location is passage fromRoom
+set
+  wanderer location to passage toRoom
+
 global biscuit
   location livingRoom
 ```
 
 With the current rule set, there is nothing in the current "wander" rule which
 excludes said entity; it fulfils all necessary criteria for it to run.
-Something must be added to distinguish the two:
+Something must be added to distinguish the two, and the "wander" rule amended to check for it:
 
 ```
+global nothing
+
+attribute fromRoom nothing
+attribute toRoom nothing
+
+global livingRoom
+global kitchen
+global diningRoom
+
+global stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+global stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+global doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+global doorB
+  fromRoom diningRoom
+  toRoom kitchen
+
+attribute location nothing
+
+attribute type nothing
+
+global character
+
 global spider
   location kitchen
   type character
 
+rule wander
+  wanderer passage
+when
+  wanderer location is passage fromRoom
+  and wanderer type is character
+set
+  wanderer location to passage toRoom
+
 global biscuit
   location livingRoom
-  type food
-```
-
-And the "wander" rule amended to check that new attribute:
-
-```
-when wanderer location is passage fromRoom
-  and wanderer type is character
-set wanderer location to passage toRoom
 ```
 
 A new rule to allow interaction between characters and food:
 
 ```
-when eater type is character
-  and eaten type is food
+global nothing
+
+attribute fromRoom nothing
+attribute toRoom nothing
+
+global livingRoom
+global kitchen
+global diningRoom
+
+global stairsA
+  fromRoom kitchen
+  toRoom livingRoom
+
+global stairsB
+  fromRoom livingRoom
+  toRoom kitchen
+
+global doorA
+  fromRoom kitchen
+  toRoom diningRoom
+
+global doorB
+  fromRoom diningRoom
+  toRoom kitchen
+
+attribute location nothing
+
+attribute type nothing
+
+global character
+global food
+global crumbs
+
+global spider
+  location kitchen
+  type character
+
+rule wander
+  wanderer passage
+when
+  wanderer location is passage fromRoom
+  and wanderer type is character
+set
+  wanderer location to passage toRoom
+
+global biscuit
+  location livingRoom
+  type food
+
+rule eat
+  eater eaten
+when
+  eater type is character
+  and eaten type is foot
   and eater location is eaten location
-set eaten type to crumbs
+set
+  eaten type to crumbs
 ```
 
 Here, multiple rules must work together to produce an effect; the spider must
@@ -229,43 +433,6 @@ Here, multiple rules must work together to produce an effect; the spider must
 match, there is a chance it may eat the biscuit or exit back to the kitchen.
 
 It will only eat the biscuit once, as after, its type will no longer be "food".
-
-Adding more entities with a type of food to the world allows the "eat" rule to
-apply to that food as well:
-
-```
-global broccoli
-  location diningRoom
-  type food
-```
-
-The "eat" rule could then be amended to track what characters eat, preventing
-them eating more than one thing:
-
-```
-when eater type is character
-  and eater hasEaten is nothing
-  and eaten type is food
-  and eater location is eaten location
-set eaten type to crumbs
-  and eater hasEaten to eaten
-```
-
-Note that hasEaten is compared to "nothing" without having initialized it.  Any
-unassigned attribute has an initial value of "nothing".
-
-As an example of inequality, a special exemption could be added to the above
-rule to prevent eating of broccoli specifically:
-
-```
-when eater type is character
-  and eater hasEaten is nothing
-  and eaten type is food
-  and eater location is eaten location
-  and eaten is not broccoli
-set eaten type to crumbs
-  and eater hasEaten to eaten
-```
 
 ## License
 
