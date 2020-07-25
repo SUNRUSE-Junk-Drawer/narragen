@@ -57,19 +57,19 @@ are linked by entities describing doors and stairs (in pairs denoting opposite
 directions):
 
 ```
-define stairsA
+global stairsA
   fromRoom kitchen
   toRoom livingRoom
 
-define stairsB
+global stairsB
   fromRoom livingRoom
   toRoom kitchen
 
-define doorA
+global doorA
   fromRoom kitchen
   toRoom diningRoom
 
-define doorB
+global doorB
   fromRoom diningRoom
   toRoom kitchen
 ```
@@ -99,7 +99,7 @@ This could be illustrated as:
 Next, a spider is added to the kitchen:
 
 ```
-define spider
+global spider
   location kitchen
 ```
 
@@ -189,7 +189,7 @@ three locations.
 Addition of another object:
 
 ```
-define biscuit
+global biscuit
   location livingRoom
 ```
 
@@ -198,11 +198,11 @@ excludes said entity; it fulfils all necessary criteria for it to run.
 Something must be added to distinguish the two:
 
 ```
-define spider
+global spider
   location kitchen
   type character
 
-define biscuit
+global biscuit
   location livingRoom
   type food
 ```
@@ -234,7 +234,7 @@ Adding more entities with a type of food to the world allows the "eat" rule to
 apply to that food as well:
 
 ```
-define broccoli
+global broccoli
   location diningRoom
   type food
 ```
