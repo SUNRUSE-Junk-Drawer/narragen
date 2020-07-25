@@ -356,7 +356,7 @@ rule wander
   wanderer passage
 when
   wanderer location is passage fromRoom
-  and wanderer type is character
+  wanderer type is character
 set
   wanderer location to passage toRoom
 
@@ -408,7 +408,7 @@ rule wander
   wanderer passage
 when
   wanderer location is passage fromRoom
-  and wanderer type is character
+  wanderer type is character
 set
   wanderer location to passage toRoom
 
@@ -420,8 +420,8 @@ rule eat
   eater eaten
 when
   eater type is character
-  and eaten type is foot
-  and eater location is eaten location
+  eaten type is foot
+  eater location is eaten location
 set
   eaten type to crumbs
 ```
