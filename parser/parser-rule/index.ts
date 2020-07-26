@@ -286,14 +286,6 @@ export const parserRule = <TNextState>(
       };
       break;
 
-    case "ruleExpectingCreate":
-      state.current = {
-        type: "ruleExpectingName",
-        ruleLine: line,
-        ruleColumn: column,
-      };
-      break;
-
     case "skippingUntilNextStatement":
       state.next.onSyntaxError(
         state.next.state,
