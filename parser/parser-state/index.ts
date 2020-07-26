@@ -90,6 +90,39 @@ export type ParserState<TNextState> = {
       createColumn: number,
       create: string
     ) => void;
+    readonly onRuleSet: (
+      state: TNextState,
+      name: string,
+      entityALine: number,
+      entityAColumn: number,
+      entityA: string,
+      attributeALine: number,
+      attributeAColumn: number,
+      attributeA: string,
+      toLine: number,
+      toColumn: number,
+      entityBLine: number,
+      entityBColumn: number,
+      entityB: string
+    ) => void;
+    readonly onRuleSetWithAttribute: (
+      state: TNextState,
+      name: string,
+      entityALine: number,
+      entityAColumn: number,
+      entityA: string,
+      attributeALine: number,
+      attributeAColumn: number,
+      attributeA: string,
+      toLine: number,
+      toColumn: number,
+      entityBLine: number,
+      entityBColumn: number,
+      entityB: string,
+      attributeBLine: number,
+      attributeBColumn: number,
+      attributeB: string
+    ) => void;
     readonly onSyntaxError: (
       state: TNextState,
       type: ParserSyntaxErrorType,

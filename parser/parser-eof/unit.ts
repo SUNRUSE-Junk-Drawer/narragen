@@ -27,6 +27,8 @@ describe("parserEof", () => {
               "onRuleConditionWithAttribute"
             ),
             onRuleCreate: jasmine.createSpy("onRuleCreate"),
+            onRuleSet: jasmine.createSpy("onRuleSet"),
+            onRuleSetWithAttribute: jasmine.createSpy("onRuleSetWithAttribute"),
             onSyntaxError: jasmine.createSpy("onSyntaxError"),
             onEof: jasmine.createSpy("onEof"),
           },
@@ -84,6 +86,14 @@ describe("parserEof", () => {
       expect(state().next.onRuleCreate).not.toHaveBeenCalled();
     });
 
+    it("does not report a rule set", () => {
+      expect(state().next.onRuleSet).not.toHaveBeenCalled();
+    });
+
+    it("does not report a rule set with an attribute", () => {
+      expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+    });
+
     it("does not report a syntax error", () => {
       expect(state().next.onSyntaxError).not.toHaveBeenCalled();
     });
@@ -129,6 +139,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -198,6 +216,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -246,6 +272,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -314,6 +348,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -385,6 +427,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -460,6 +510,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("reports one syntax error", () => {
         expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
       });
@@ -527,6 +585,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -574,6 +640,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -644,6 +718,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -717,6 +799,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -797,6 +887,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -905,6 +1003,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -993,6 +1099,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -1061,6 +1175,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -1155,6 +1277,14 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -1217,6 +1347,14 @@ describe("parserEof", () => {
 
       it("does not report a rule create", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
