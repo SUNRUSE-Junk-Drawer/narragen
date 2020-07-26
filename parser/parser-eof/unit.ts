@@ -1884,7 +1884,7 @@ describe("parserEof", () => {
       it("reports the expected syntax error", () => {
         expect(state().next.onSyntaxError).toHaveBeenCalledWith(
           "Test Next State",
-          "expectedAttributeOrIs",
+          "expectedAttributeOrTo",
           [
             {
               line: 20,
@@ -1899,7 +1899,7 @@ describe("parserEof", () => {
             {
               line: 43,
               column: 72,
-              content: "is",
+              content: "to",
             },
             {
               line: 48,
