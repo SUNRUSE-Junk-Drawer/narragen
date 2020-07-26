@@ -1663,12 +1663,26 @@ describe("parserEof", () => {
         expect(state().next.onRuleLocal).not.toHaveBeenCalled();
       });
 
-      it("reports one rule condition", () => {
-        expect(state().next.onRuleCondition).toHaveBeenCalledTimes(1);
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
       });
 
-      it("reports the expected rule condition", () => {
-        expect(state().next.onRuleCondition).toHaveBeenCalledWith(
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("reports one rule set", () => {
+        expect(state().next.onRuleSet).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule set", () => {
+        expect(state().next.onRuleSet).toHaveBeenCalledWith(
           "Test Next State",
           "Test Name",
           20,
@@ -1685,20 +1699,6 @@ describe("parserEof", () => {
         );
       });
 
-      it("does not report a rule condition with an attribute", () => {
-        expect(
-          state().next.onRuleConditionWithAttribute
-        ).not.toHaveBeenCalled();
-      });
-
-      it("does not report a rule create", () => {
-        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
-      });
-
-      it("does not report a rule set", () => {
-        expect(state().next.onRuleSet).not.toHaveBeenCalled();
-      });
-
       it("does not report a rule set with an attribute", () => {
         expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
       });
@@ -1707,8 +1707,8 @@ describe("parserEof", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
 
-      it("reports a rule condition before reporting eof", () => {
-        expect(state().next.onRuleCondition).toHaveBeenCalledBefore(
+      it("reports a rule set before reporting eof", () => {
+        expect(state().next.onRuleSet).toHaveBeenCalledBefore(
           state().next.onEof
         );
       });
@@ -1760,14 +1760,26 @@ describe("parserEof", () => {
         expect(state().next.onRuleCondition).not.toHaveBeenCalled();
       });
 
-      it("reports one rule condition with an attribute", () => {
-        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledTimes(
-          1
-        );
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
       });
 
-      it("reports the expected rule condition with an attribute", () => {
-        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledWith(
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("reports one rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledWith(
           "Test Next State",
           "Test Name",
           20,
@@ -1787,26 +1799,14 @@ describe("parserEof", () => {
         );
       });
 
-      it("does not report a rule create", () => {
-        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
-      });
-
-      it("does not report a rule set", () => {
-        expect(state().next.onRuleSet).not.toHaveBeenCalled();
-      });
-
-      it("does not report a rule set with an attribute", () => {
-        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
-      });
-
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
 
-      it("reports a rule condition with an attribute before reporting eof", () => {
-        expect(
-          state().next.onRuleConditionWithAttribute
-        ).toHaveBeenCalledBefore(state().next.onEof);
+      it("reports a rule set with an attribute before reporting eof", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledBefore(
+          state().next.onEof
+        );
       });
     }
   );

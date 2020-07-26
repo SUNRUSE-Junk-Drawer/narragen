@@ -258,7 +258,7 @@ export const parserEof = <TNextState>(
       break;
 
     case "ruleSetExpectingAttributeBOrEntityC":
-      state.next.onRuleCondition(
+      state.next.onRuleSet(
         state.next.state,
         state.current.name,
         state.current.entityALine,
@@ -276,7 +276,7 @@ export const parserEof = <TNextState>(
       break;
 
     case "ruleSetExpectingEntityCOrAttributeC":
-      state.next.onRuleConditionWithAttribute(
+      state.next.onRuleSetWithAttribute(
         state.next.state,
         state.current.name,
         state.current.entityALine,
