@@ -7,7 +7,7 @@ describe("statementParserToken", () => {
   const nextState: NextState = "Test Next State";
   const line = 37;
   const column = 148;
-  const name = "testname";
+  const name = "teSTnaME";
 
   const when = (
     description: string,
@@ -26,7 +26,7 @@ describe("statementParserToken", () => {
           state: () => StatementParserState<NextState>
         ) => void
       ) => {
-        describe(token, () => {
+        describe(token.toLowerCase(), () => {
           let state: undefined | StatementParserState<NextState>;
           beforeAll(() => {
             state = {
@@ -60,11 +60,11 @@ describe("statementParserToken", () => {
         });
       };
 
-      given("global", onGlobal);
-      given("attribute", onAttribute);
-      given("rule", onRule);
-      given("when", onWhen);
-      given("is", onIs);
+      given("gLOBaL", onGlobal);
+      given("ATTriBUTE", onAttribute);
+      given("RUle", onRule);
+      given("whEN", onWhen);
+      given("iS", onIs);
       given(name, onName);
     });
   };
@@ -210,7 +210,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -259,7 +259,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -537,7 +537,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -600,7 +600,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -853,7 +853,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -902,7 +902,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -1178,7 +1178,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -1241,7 +1241,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -1539,7 +1539,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -1602,7 +1602,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -1909,7 +1909,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -1977,7 +1977,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -2280,7 +2280,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -2343,7 +2343,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -2640,7 +2640,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -2880,7 +2880,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -2929,7 +2929,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -3210,7 +3210,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -3264,7 +3264,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -3305,7 +3305,7 @@ describe("statementParserToken", () => {
       });
     },
     (state) => {
-      it('expects "is"', () => {
+      it('expects "iS"', () => {
         expect(state().current).toEqual({
           type: "ruleConditionExpectingIs",
           name: "Test Name",
@@ -3355,7 +3355,7 @@ describe("statementParserToken", () => {
   );
 
   when(
-    'expecting the rule condition\'s "is"',
+    'expecting the rule condition\'s "iS"',
     {
       type: "ruleConditionExpectingIs",
       name: "Test Name",
@@ -3571,7 +3571,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -3961,7 +3961,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -4025,7 +4025,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -4349,7 +4349,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -4418,7 +4418,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -4762,7 +4762,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -4836,7 +4836,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });
@@ -4877,7 +4877,7 @@ describe("statementParserToken", () => {
       });
     },
     (state) => {
-      it('expects the following condition\'s attribute, or its "is"', () => {
+      it('expects the following condition\'s attribute, or its "iS"', () => {
         expect(state().current).toEqual({
           type: "ruleConditionExpectingAttributeCOrIs",
           name: "Test Name",
@@ -4938,7 +4938,7 @@ describe("statementParserToken", () => {
   );
 
   when(
-    'expecting a rule condition\'s following attribute or "is"',
+    'expecting a rule condition\'s following attribute or "iS"',
     {
       type: "ruleConditionExpectingAttributeCOrIs",
       name: "Test Name",
@@ -5245,7 +5245,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -5672,7 +5672,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "when",
+              content: "whEN",
             },
           ],
         });
@@ -5736,7 +5736,7 @@ describe("statementParserToken", () => {
             {
               line,
               column,
-              content: "is",
+              content: "iS",
             },
           ],
         });

@@ -170,7 +170,7 @@ describe("tokenizerEof", () => {
         column: 27,
         current: {
           type: "token",
-          content: "teststartedtoken",
+          content: "teSTSTartEDtoKEN",
           line: 20,
           column: 15,
         },
@@ -225,7 +225,7 @@ describe("tokenizerEof", () => {
         jasmine.anything(),
         jasmine.anything(),
         jasmine.anything(),
-        "teststartedtoken"
+        "teSTSTartEDtoKEN"
       );
     });
 

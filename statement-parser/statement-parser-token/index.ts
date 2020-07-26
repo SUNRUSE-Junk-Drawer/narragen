@@ -8,7 +8,7 @@ export const statementParserToken = <TNextState>(
 ): void => {
   switch (state.current.type) {
     case "initial":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.current = {
             type: "globalExpectingName",
@@ -52,7 +52,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "globalExpectingName":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedName", [
             {
@@ -138,7 +138,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "globalExpectingAttribute":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.current = {
             type: "globalExpectingName",
@@ -191,7 +191,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "globalExpectingInitializer":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedGlobal", [
             {
@@ -279,7 +279,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "attributeExpectingName":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedName", [
             {
@@ -361,7 +361,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "attributeExpectingInitializer":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedName", [
             {
@@ -469,7 +469,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleExpectingName":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedName", [
             {
@@ -555,7 +555,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleExpectingLocal":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.current = {
             type: "globalExpectingName",
@@ -616,7 +616,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingEntityA":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.current = {
             type: "globalExpectingName",
@@ -669,7 +669,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingAttributeA":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedAttribute", [
             {
@@ -751,7 +751,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingIs":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedIs", [
             {
@@ -855,7 +855,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingEntityB":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedAttribute", [
             {
@@ -982,7 +982,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingAttributeBOrEntityC":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onRuleCondition(
             state.next.state,
@@ -1111,7 +1111,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingEntityCOrAttributeC":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onRuleConditionWithAttribute(
             state.next.state,
@@ -1257,7 +1257,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "ruleConditionExpectingAttributeCOrIs":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(state.next.state, "expectedAttributeOrIs", [
             {
@@ -1486,7 +1486,7 @@ export const statementParserToken = <TNextState>(
       break;
 
     case "skippingUntilNextStatement":
-      switch (content) {
+      switch (content.toLowerCase()) {
         case "global":
           state.next.onSyntaxError(
             state.next.state,

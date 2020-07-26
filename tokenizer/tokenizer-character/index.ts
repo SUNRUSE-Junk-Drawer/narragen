@@ -18,7 +18,7 @@ export const tokenizerCharacter = <TNextState>(
           type: "token",
           line: state.line,
           column: state.column,
-          content: character.toLowerCase(),
+          content: character,
         };
       }
       break;
@@ -64,7 +64,7 @@ export const tokenizerCharacter = <TNextState>(
           type: "betweenTokens",
         };
       } else {
-        state.current.content += character.toLowerCase();
+        state.current.content += character;
       }
       break;
   }

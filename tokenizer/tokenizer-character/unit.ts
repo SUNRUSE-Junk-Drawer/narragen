@@ -127,7 +127,7 @@ describe("tokenizerCharacter", () => {
               column: 27,
               current: {
                 type: "token",
-                content: "teststartedtoken",
+                content: "teSTSTartEDtoKEN",
                 line: 20,
                 column: 15,
               },
@@ -182,7 +182,7 @@ describe("tokenizerCharacter", () => {
               jasmine.anything(),
               jasmine.anything(),
               jasmine.anything(),
-              "teststartedtoken"
+              "teSTSTartEDtoKEN"
             );
           });
 
@@ -344,7 +344,7 @@ describe("tokenizerCharacter", () => {
             column: 27,
             current: {
               type: "token",
-              content: "teststartedtoken",
+              content: "teSTSTartEDtoKEN",
               line: 20,
               column: 15,
             },
@@ -399,7 +399,7 @@ describe("tokenizerCharacter", () => {
             jasmine.anything(),
             jasmine.anything(),
             jasmine.anything(),
-            "teststartedtoken"
+            "teSTSTartEDtoKEN"
           );
         });
 
@@ -536,7 +536,7 @@ describe("tokenizerCharacter", () => {
             column: 27,
             current: {
               type: "token",
-              content: "teststartedtoken",
+              content: "teSTSTartEDtoKEN",
               line: 20,
               column: 15,
             },
@@ -591,7 +591,7 @@ describe("tokenizerCharacter", () => {
             jasmine.anything(),
             jasmine.anything(),
             jasmine.anything(),
-            "teststartedtoken"
+            "teSTSTartEDtoKEN"
           );
         });
 
@@ -621,38 +621,32 @@ describe("tokenizerCharacter", () => {
     for (const character of [
       {
         character: "e",
-        newToken: "e",
-        continuedToken: "teststartedtokene",
+        continuedToken: "teSTSTartEDtoKENe",
         continuedComment: "Test Line Commente",
       },
       {
         character: "E",
-        newToken: "e",
-        continuedToken: "teststartedtokene",
+        continuedToken: "teSTSTartEDtoKENE",
         continuedComment: "Test Line CommentE",
       },
       {
         character: "-",
-        newToken: "-",
-        continuedToken: "teststartedtoken-",
+        continuedToken: "teSTSTartEDtoKEN-",
         continuedComment: "Test Line Comment-",
       },
       {
         character: "_",
-        newToken: "_",
-        continuedToken: "teststartedtoken_",
+        continuedToken: "teSTSTartEDtoKEN_",
         continuedComment: "Test Line Comment_",
       },
       {
         character: "5",
-        newToken: "5",
-        continuedToken: "teststartedtoken5",
+        continuedToken: "teSTSTartEDtoKEN5",
         continuedComment: "Test Line Comment5",
       },
       {
         character: "0",
-        newToken: "0",
-        continuedToken: "teststartedtoken0",
+        continuedToken: "teSTSTartEDtoKEN0",
         continuedComment: "Test Line Comment0",
       },
     ]) {
@@ -693,7 +687,7 @@ describe("tokenizerCharacter", () => {
               type: "token",
               column: 27,
               line: 44,
-              content: character.newToken,
+              content: character.character,
             });
           });
 
@@ -769,7 +763,7 @@ describe("tokenizerCharacter", () => {
               column: 27,
               current: {
                 type: "token",
-                content: "teststartedtoken",
+                content: "teSTSTartEDtoKEN",
                 line: 20,
                 column: 15,
               },
