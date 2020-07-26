@@ -455,13 +455,8 @@ export const parserCreate = <TNextState>(
       );
 
       state.current = {
-        type: "ruleExpectingCreate",
-        name: state.current.name,
-      };
-
-      state.current = {
         type: "skippingUntilNextStatement",
-        syntaxErrorType: "expectedAttributeOrTo",
+        syntaxErrorType: "expectedAttributeOrEntity",
         tokens: [
           {
             line,

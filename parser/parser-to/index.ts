@@ -1,6 +1,6 @@
 import { ParserState } from "../parser-state";
 
-export const parserWhen = <TNextState>(
+export const parserTo = <TNextState>(
   state: ParserState<TNextState>,
   line: number,
   column: number
@@ -14,7 +14,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -36,7 +36,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -50,7 +50,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -72,7 +72,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -94,7 +94,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -121,7 +121,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -143,7 +143,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -151,10 +151,15 @@ export const parserWhen = <TNextState>(
 
     case "ruleExpectingLocal":
       state.current = {
-        type: "ruleConditionExpectingEntityA",
-        name: state.current.name,
-        whenLine: line,
-        whenColumn: column,
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedStatement",
+        tokens: [
+          {
+            line,
+            column,
+            content: "to",
+          },
+        ],
       };
       break;
 
@@ -166,7 +171,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -185,7 +190,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -209,7 +214,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -238,80 +243,70 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
       break;
 
     case "ruleConditionExpectingAttributeBOrEntityC":
+      state.next.onRuleCondition(
+        state.next.state,
+        state.current.name,
+        state.current.entityALine,
+        state.current.entityAColumn,
+        state.current.entityA,
+        state.current.attributeALine,
+        state.current.attributeAColumn,
+        state.current.attributeA,
+        state.current.isLine,
+        state.current.isColumn,
+        state.current.entityBLine,
+        state.current.entityBColumn,
+        state.current.entityB
+      );
+
       state.current = {
         type: "skippingUntilNextStatement",
-        syntaxErrorType: "expectedAttributeOrEntity",
+        syntaxErrorType: "expectedAttributeOrIs",
         tokens: [
-          {
-            line: state.current.entityALine,
-            column: state.current.entityAColumn,
-            content: state.current.entityA,
-          },
-          {
-            line: state.current.attributeALine,
-            column: state.current.attributeAColumn,
-            content: state.current.attributeA,
-          },
-          {
-            line: state.current.isLine,
-            column: state.current.isColumn,
-            content: "is",
-          },
-          {
-            line: state.current.entityBLine,
-            column: state.current.entityBColumn,
-            content: state.current.entityB,
-          },
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
       break;
 
     case "ruleConditionExpectingEntityCOrAttributeC":
+      state.next.onRuleConditionWithAttribute(
+        state.next.state,
+        state.current.name,
+        state.current.entityALine,
+        state.current.entityAColumn,
+        state.current.entityA,
+        state.current.attributeALine,
+        state.current.attributeAColumn,
+        state.current.attributeA,
+        state.current.isLine,
+        state.current.isColumn,
+        state.current.entityBLine,
+        state.current.entityBColumn,
+        state.current.entityB,
+        state.current.attributeBOrEntityCLine,
+        state.current.attributeBOrEntityCColumn,
+        state.current.attributeBOrEntityC
+      );
+
       state.current = {
         type: "skippingUntilNextStatement",
         syntaxErrorType: "expectedAttributeOrEntity",
         tokens: [
           {
-            line: state.current.entityALine,
-            column: state.current.entityAColumn,
-            content: state.current.entityA,
-          },
-          {
-            line: state.current.attributeALine,
-            column: state.current.attributeAColumn,
-            content: state.current.attributeA,
-          },
-          {
-            line: state.current.isLine,
-            column: state.current.isColumn,
-            content: "is",
-          },
-          {
-            line: state.current.entityBLine,
-            column: state.current.entityBColumn,
-            content: state.current.entityB,
-          },
-          {
-            line: state.current.attributeBOrEntityCLine,
-            column: state.current.attributeBOrEntityCColumn,
-            content: state.current.attributeBOrEntityC,
-          },
-          {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -355,7 +350,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -364,12 +359,12 @@ export const parserWhen = <TNextState>(
     case "ruleExpectingCreate":
       state.current = {
         type: "skippingUntilNextStatement",
-        syntaxErrorType: "expectedName",
+        syntaxErrorType: "expectedStatement",
         tokens: [
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -383,7 +378,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -402,7 +397,7 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
@@ -410,25 +405,16 @@ export const parserWhen = <TNextState>(
 
     case "ruleSetExpectingTo":
       state.current = {
-        type: "skippingUntilNextStatement",
-        syntaxErrorType: "expectedTo",
-        tokens: [
-          {
-            line: state.current.entityALine,
-            column: state.current.entityAColumn,
-            content: state.current.entityA,
-          },
-          {
-            line: state.current.attributeALine,
-            column: state.current.attributeAColumn,
-            content: state.current.attributeA,
-          },
-          {
-            line,
-            column,
-            content: "when",
-          },
-        ],
+        type: "ruleSetExpectingEntityB",
+        name: state.current.name,
+        entityALine: state.current.entityALine,
+        entityAColumn: state.current.entityAColumn,
+        entityA: state.current.entityA,
+        attributeALine: state.current.attributeALine,
+        attributeAColumn: state.current.attributeAColumn,
+        attributeA: state.current.attributeA,
+        toLine: line,
+        toColumn: column,
       };
       break;
 
@@ -455,79 +441,50 @@ export const parserWhen = <TNextState>(
           {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
       break;
 
     case "ruleSetExpectingAttributeBOrEntityC":
-      state.next.onRuleSet(
-        state.next.state,
-        state.current.name,
-        state.current.entityALine,
-        state.current.entityAColumn,
-        state.current.entityA,
-        state.current.attributeALine,
-        state.current.attributeAColumn,
-        state.current.attributeA,
-        state.current.toLine,
-        state.current.toColumn,
-        state.current.entityBLine,
-        state.current.entityBColumn,
-        state.current.entityB
-      );
-
       state.current = {
         type: "skippingUntilNextStatement",
         syntaxErrorType: "expectedAttributeOrEntity",
         tokens: [
           {
+            line: state.current.entityALine,
+            column: state.current.entityAColumn,
+            content: state.current.entityA,
+          },
+          {
+            line: state.current.attributeALine,
+            column: state.current.attributeAColumn,
+            content: state.current.attributeA,
+          },
+          {
+            line: state.current.toLine,
+            column: state.current.toColumn,
+            content: "to",
+          },
+          {
+            line: state.current.entityBLine,
+            column: state.current.entityBColumn,
+            content: state.current.entityB,
+          },
+          {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
       };
       break;
 
     case "ruleSetExpectingEntityCOrAttributeC":
-      state.next.onRuleSetWithAttribute(
-        state.next.state,
-        state.current.name,
-        state.current.entityALine,
-        state.current.entityAColumn,
-        state.current.entityA,
-        state.current.attributeALine,
-        state.current.attributeAColumn,
-        state.current.attributeA,
-        state.current.toLine,
-        state.current.toColumn,
-        state.current.entityBLine,
-        state.current.entityBColumn,
-        state.current.entityB,
-        state.current.attributeBOrEntityCLine,
-        state.current.attributeBOrEntityCColumn,
-        state.current.attributeBOrEntityC
-      );
-
       state.current = {
         type: "skippingUntilNextStatement",
         syntaxErrorType: "expectedAttributeOrEntity",
-        tokens: [
-          {
-            line,
-            column,
-            content: "when",
-          },
-        ],
-      };
-      break;
-
-    case "ruleSetExpectingAttributeCOrTo":
-      state.current = {
-        type: "skippingUntilNextStatement",
-        syntaxErrorType: "expectedAttributeOrTo",
         tokens: [
           {
             line: state.current.entityALine,
@@ -555,16 +512,42 @@ export const parserWhen = <TNextState>(
             content: state.current.attributeBOrEntityC,
           },
           {
-            line: state.current.entityCOrAttributeCLine,
-            column: state.current.entityCOrAttributeCColumn,
-            content: state.current.entityCOrAttributeC,
-          },
-          {
             line,
             column,
-            content: "when",
+            content: "to",
           },
         ],
+      };
+      break;
+
+    case "ruleSetExpectingAttributeCOrTo":
+      state.next.onRuleSet(
+        state.next.state,
+        state.current.name,
+        state.current.entityALine,
+        state.current.entityAColumn,
+        state.current.entityA,
+        state.current.attributeALine,
+        state.current.attributeAColumn,
+        state.current.attributeA,
+        state.current.toLine,
+        state.current.toColumn,
+        state.current.entityBLine,
+        state.current.entityBColumn,
+        state.current.entityB
+      );
+
+      state.current = {
+        type: "ruleSetExpectingEntityB",
+        name: state.current.name,
+        entityALine: state.current.attributeBOrEntityCLine,
+        entityAColumn: state.current.attributeBOrEntityCColumn,
+        entityA: state.current.attributeBOrEntityC,
+        attributeALine: state.current.entityCOrAttributeCLine,
+        attributeAColumn: state.current.entityCOrAttributeCColumn,
+        attributeA: state.current.entityCOrAttributeC,
+        toLine: line,
+        toColumn: column,
       };
       break;
 
@@ -572,7 +555,7 @@ export const parserWhen = <TNextState>(
       state.current.tokens.push({
         line,
         column,
-        content: "when",
+        content: "to",
       });
       break;
   }

@@ -1734,7 +1734,7 @@ describe("parserWhen", () => {
       it("waits for the next statement", () => {
         expect(state().current).toEqual({
           type: "skippingUntilNextStatement",
-          syntaxErrorType: "expectedAttributeOrTo",
+          syntaxErrorType: "expectedAttributeOrEntity",
           tokens: [
             {
               line: 37,
@@ -1888,7 +1888,7 @@ describe("parserWhen", () => {
         expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledTimes(1);
       });
 
-      it("reports the expect rule set with an attribute", () => {
+      it("reports the expected rule set with an attribute", () => {
         expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledWith(
           "Test Next State",
           "Test Name",
