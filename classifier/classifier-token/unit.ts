@@ -174,7 +174,7 @@ describe("classifierToken", () => {
     });
   });
 
-  when("iS", (state) => {
+  when("is", (state) => {
     it('does not report any "global" tokens', () => {
       expect(state().next.onGlobal).not.toHaveBeenCalled();
     });
