@@ -15,6 +15,7 @@ describe("classifierToken", () => {
         onRule: jasmine.createSpy("onRule"),
         onWhen: jasmine.createSpy("onWhen"),
         onIs: jasmine.createSpy("onIs"),
+        onCreate: jasmine.createSpy("onCreate"),
         onName: jasmine.createSpy("onName"),
         onEof: jasmine.createSpy("onEof"),
       },
@@ -40,6 +41,10 @@ describe("classifierToken", () => {
   });
 
   it('does not report any "is" tokens', () => {
+    expect(state.next.onIs).not.toHaveBeenCalled();
+  });
+
+  it('does not report any "create" tokens', () => {
     expect(state.next.onIs).not.toHaveBeenCalled();
   });
 

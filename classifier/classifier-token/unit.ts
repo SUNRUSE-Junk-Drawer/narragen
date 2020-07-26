@@ -20,6 +20,7 @@ describe("classifierToken", () => {
             onRule: jasmine.createSpy("onRule"),
             onWhen: jasmine.createSpy("onWhen"),
             onIs: jasmine.createSpy("onIs"),
+            onCreate: jasmine.createSpy("onCreate"),
             onName: jasmine.createSpy("onName"),
             onEof: jasmine.createSpy("onEof"),
           },
@@ -65,6 +66,10 @@ describe("classifierToken", () => {
       expect(state().next.onIs).not.toHaveBeenCalled();
     });
 
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
+    });
+
     it("does not report any name tokens", () => {
       expect(state().next.onName).not.toHaveBeenCalled();
     });
@@ -97,6 +102,10 @@ describe("classifierToken", () => {
 
     it('does not report any "is" tokens', () => {
       expect(state().next.onIs).not.toHaveBeenCalled();
+    });
+
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
     });
 
     it("does not report any name tokens", () => {
@@ -133,6 +142,10 @@ describe("classifierToken", () => {
       expect(state().next.onIs).not.toHaveBeenCalled();
     });
 
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
+    });
+
     it("does not report any name tokens", () => {
       expect(state().next.onName).not.toHaveBeenCalled();
     });
@@ -167,12 +180,16 @@ describe("classifierToken", () => {
       expect(state().next.onIs).not.toHaveBeenCalled();
     });
 
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
+    });
+
     it("does not report any name tokens", () => {
       expect(state().next.onName).not.toHaveBeenCalled();
     });
   });
 
-  when("is", (state) => {
+  when("iS", (state) => {
     it('does not report any "global" tokens', () => {
       expect(state().next.onGlobal).not.toHaveBeenCalled();
     });
@@ -195,6 +212,48 @@ describe("classifierToken", () => {
 
     it('reports the expected "is" token', () => {
       expect(state().next.onIs).toHaveBeenCalledWith(
+        "Test Next State",
+        37,
+        148
+      );
+    });
+
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
+    });
+
+    it("does not report any name tokens", () => {
+      expect(state().next.onName).not.toHaveBeenCalled();
+    });
+  });
+
+  when("CReaTE", (state) => {
+    it('does not report any "global" tokens', () => {
+      expect(state().next.onGlobal).not.toHaveBeenCalled();
+    });
+
+    it('does not report any "attribute" tokens', () => {
+      expect(state().next.onAttribute).not.toHaveBeenCalled();
+    });
+
+    it('does not report any "rule" tokens', () => {
+      expect(state().next.onRule).not.toHaveBeenCalled();
+    });
+
+    it('does not report any "when" tokens', () => {
+      expect(state().next.onWhen).not.toHaveBeenCalled();
+    });
+
+    it('does not report any "is" tokens', () => {
+      expect(state().next.onIs).not.toHaveBeenCalled();
+    });
+
+    it('reports one "create" token', () => {
+      expect(state().next.onCreate).toHaveBeenCalledTimes(1);
+    });
+
+    it('reports the expected "create" token', () => {
+      expect(state().next.onCreate).toHaveBeenCalledWith(
         "Test Next State",
         37,
         148
@@ -227,11 +286,15 @@ describe("classifierToken", () => {
       expect(state().next.onIs).not.toHaveBeenCalled();
     });
 
-    it('reports one "is" token', () => {
+    it('does not report any "create" tokens', () => {
+      expect(state().next.onCreate).not.toHaveBeenCalled();
+    });
+
+    it('reports one "name token', () => {
       expect(state().next.onName).toHaveBeenCalledTimes(1);
     });
 
-    it('reports the expected "is" token', () => {
+    it("reports the expected name token", () => {
       expect(state().next.onName).toHaveBeenCalledWith(
         "Test Next State",
         37,

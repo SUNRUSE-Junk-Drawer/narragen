@@ -14,6 +14,11 @@ export type ClassifierState<TNextState> = {
     readonly onRule: (state: TNextState, line: number, column: number) => void;
     readonly onWhen: (state: TNextState, line: number, column: number) => void;
     readonly onIs: (state: TNextState, line: number, column: number) => void;
+    readonly onCreate: (
+      state: TNextState,
+      line: number,
+      column: number
+    ) => void;
     readonly onName: (
       state: TNextState,
       line: number,

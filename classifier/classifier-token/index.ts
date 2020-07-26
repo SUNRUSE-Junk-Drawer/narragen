@@ -27,6 +27,10 @@ export const classifierToken = <TNextState>(
       state.next.onIs(state.next.state, line, column);
       break;
 
+    case "create":
+      state.next.onCreate(state.next.state, line, column);
+      break;
+
     default:
       state.next.onName(state.next.state, line, column, content);
       break;

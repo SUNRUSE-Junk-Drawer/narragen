@@ -1,8 +1,8 @@
 import { ParserCurrentState } from "../parser-current-state";
 import { ParserState } from "../parser-state";
-import { parserEof } from ".";
+import { parserCreate } from ".";
 
-describe("parserEof", () => {
+describe("parserCreate", () => {
   type NextState = "Test Next State";
 
   const when = (
@@ -32,26 +32,34 @@ describe("parserEof", () => {
           },
         };
 
-        parserEof(state, 37, 148);
+        parserCreate(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
 
-      it("reports eof once", () => {
+      it("does not report eof", () => {
         expect(
           (state as ParserState<NextState>).next.onEof
-        ).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected eof", () => {
-        expect(
-          (state as ParserState<NextState>).next.onEof
-        ).toHaveBeenCalledWith("Test Next State", 37, 148);
+        ).not.toHaveBeenCalled();
       });
     });
   };
 
   when("initial", { type: "initial" }, (state) => {
+    it("waits for the next statement", () => {
+      expect(state().current).toEqual({
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedStatement",
+        tokens: [
+          {
+            line: 37,
+            column: 148,
+            content: "create",
+          },
+        ],
+      });
+    });
+
     it("does not report a global", () => {
       expect(state().next.onGlobal).not.toHaveBeenCalled();
     });
@@ -97,6 +105,20 @@ describe("parserEof", () => {
       globalColumn: 15,
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -148,12 +170,6 @@ describe("parserEof", () => {
           ]
         );
       });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
@@ -164,6 +180,20 @@ describe("parserEof", () => {
       name: "Test Name",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -214,6 +244,20 @@ describe("parserEof", () => {
       attribute: "Test Attribute",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -265,12 +309,6 @@ describe("parserEof", () => {
           ]
         );
       });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
@@ -282,6 +320,20 @@ describe("parserEof", () => {
       attributeColumn: 15,
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -333,12 +385,6 @@ describe("parserEof", () => {
           ]
         );
       });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
@@ -353,6 +399,20 @@ describe("parserEof", () => {
       name: "Test Name",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -394,7 +454,7 @@ describe("parserEof", () => {
       it("reports the expected syntax error", () => {
         expect(state().next.onSyntaxError).toHaveBeenCalledWith(
           "Test Next State",
-          "expectedGlobal",
+          "expectedName",
           [
             {
               line: 20,
@@ -409,12 +469,6 @@ describe("parserEof", () => {
           ]
         );
       });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
@@ -426,6 +480,20 @@ describe("parserEof", () => {
       ruleColumn: 15,
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -477,27 +545,30 @@ describe("parserEof", () => {
           ]
         );
       });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
   when(
-    "expecting the name of a rule local",
+    "expecting the name of a rule's local",
     {
       type: "ruleExpectingLocal",
       name: "Test Name",
     },
     (state) => {
+      it("expects the first entity of the condition", () => {
+        expect(state().current).toEqual({
+          type: "ruleConditionExpectingEntityA",
+          name: "Test Name",
+          whenLine: 37,
+          whenColumn: 148,
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
 
-      it("does not report a global's initializer", () => {
+      it("does not report a global initializer", () => {
         expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
       });
 
@@ -542,6 +613,20 @@ describe("parserEof", () => {
       whenColumn: 19,
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedLocal",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -576,28 +661,8 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedLocal",
-          [
-            {
-              line: 4,
-              column: 19,
-              content: "when",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
@@ -612,6 +677,25 @@ describe("parserEof", () => {
       entityA: "Test Entity A",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedAttribute",
+          tokens: [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -646,28 +730,8 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedAttribute",
-          [
-            {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
@@ -685,6 +749,30 @@ describe("parserEof", () => {
       attributeA: "Test Attribute A",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedIs",
+          tokens: [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -719,33 +807,8 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedIs",
-          [
-            {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
@@ -765,6 +828,35 @@ describe("parserEof", () => {
       isColumn: 72,
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedAttribute",
+          tokens: [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+            {
+              line: 43,
+              column: 72,
+              content: "is",
+            },
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -799,38 +891,8 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedGlobalOrLocal",
-          [
-            {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "is",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
@@ -853,6 +915,13 @@ describe("parserEof", () => {
       entityB: "Test Entity B",
     },
     (state) => {
+      it("waits for the the name of the rule's first create", () => {
+        expect(state().current).toEqual({
+          type: "ruleExpectingCreate",
+          name: "Test Name",
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -908,12 +977,6 @@ describe("parserEof", () => {
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
-
-      it("reports a rule condition before reporting eof", () => {
-        expect(state().next.onRuleCondition).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
-      });
     }
   );
 
@@ -938,6 +1001,13 @@ describe("parserEof", () => {
       attributeBOrEntityC: "Test Attribute B Or Entity C",
     },
     (state) => {
+      it("waits for the the name of the rule's first create", () => {
+        expect(state().current).toEqual({
+          type: "ruleExpectingCreate",
+          name: "Test Name",
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -996,12 +1066,6 @@ describe("parserEof", () => {
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
-
-      it("reports a rule condition with an attribute before reporting eof", () => {
-        expect(
-          state().next.onRuleConditionWithAttribute
-        ).toHaveBeenCalledBefore(state().next.onEof);
-      });
     }
   );
 
@@ -1029,6 +1093,50 @@ describe("parserEof", () => {
       entityCOrAttributeC: "Test Entity C Or Attribute C",
     },
     (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedAttributeOrIs",
+          tokens: [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+            {
+              line: 43,
+              column: 72,
+              content: "is",
+            },
+            {
+              line: 48,
+              column: 3,
+              content: "Test Entity B",
+            },
+            {
+              line: 56,
+              column: 11,
+              content: "Test Attribute B Or Entity C",
+            },
+            {
+              line: 64,
+              column: 24,
+              content: "Test Entity C Or Attribute C",
+            },
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
@@ -1063,69 +1171,38 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedAttributeOrIs",
-          [
-            {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "is",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
-              line: 56,
-              column: 11,
-              content: "Test Attribute B Or Entity C",
-            },
-            {
-              line: 64,
-              column: 24,
-              content: "Test Entity C Or Attribute C",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
 
   when(
-    "expecting the name of a rule create",
+    "expecting the name of a rule's create",
     {
       type: "ruleExpectingCreate",
       name: "Test Name",
     },
     (state) => {
+      it("expects the first entity of the condition", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedName",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
 
-      it("does not report a global's initializer", () => {
+      it("does not report a global initializer", () => {
         expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
       });
 
@@ -1185,11 +1262,40 @@ describe("parserEof", () => {
       ],
     },
     (state) => {
+      it("appends the token", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedGlobal",
+          tokens: [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Content A",
+            },
+            {
+              line: 23,
+              column: 17,
+              content: "Test Content B",
+            },
+            {
+              line: 27,
+              column: 5,
+              content: "Test Content C",
+            },
+            {
+              line: 37,
+              column: 148,
+              content: "create",
+            },
+          ],
+        });
+      });
+
       it("does not report a global", () => {
         expect(state().next.onGlobal).not.toHaveBeenCalled();
       });
 
-      it("does not report a global's initializer", () => {
+      it("does not report a global initializer", () => {
         expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
       });
 
@@ -1219,38 +1325,8 @@ describe("parserEof", () => {
         expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
-      it("reports one syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
-      });
-
-      it("reports the expected syntax error", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
-          "Test Next State",
-          "expectedGlobal",
-          [
-            {
-              line: 20,
-              column: 15,
-              content: "Test Content A",
-            },
-            {
-              line: 23,
-              column: 17,
-              content: "Test Content B",
-            },
-            {
-              line: 27,
-              column: 5,
-              content: "Test Content C",
-            },
-          ]
-        );
-      });
-
-      it("reports a syntax error before reporting eof", () => {
-        expect(state().next.onSyntaxError).toHaveBeenCalledBefore(
-          state().next.onEof
-        );
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
     }
   );
