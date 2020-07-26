@@ -263,6 +263,16 @@ export const parserName = <TNextState>(
       };
       break;
 
+    case "ruleExpectingCreate":
+      state.next.onRuleCreate(
+        state.next.state,
+        state.current.name,
+        line,
+        column,
+        content
+      );
+      break;
+
     case "skippingUntilNextStatement":
       state.current.tokens.push({
         line,

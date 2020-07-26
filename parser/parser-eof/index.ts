@@ -199,6 +199,9 @@ export const parserEof = <TNextState>(
       ]);
       break;
 
+    case "ruleExpectingCreate":
+      break;
+
     case "skippingUntilNextStatement":
       state.next.onSyntaxError(
         state.next.state,

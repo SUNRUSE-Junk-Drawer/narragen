@@ -83,6 +83,13 @@ export type ParserState<TNextState> = {
       attributeBColumn: number,
       attributeB: string
     ) => void;
+    readonly onRuleCreate: (
+      state: TNextState,
+      name: string,
+      createLine: number,
+      createColumn: number,
+      create: string
+    ) => void;
     readonly onSyntaxError: (
       state: TNextState,
       type: ParserSyntaxErrorType,

@@ -361,6 +361,20 @@ export const parserWhen = <TNextState>(
       };
       break;
 
+    case "ruleExpectingCreate":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedName",
+        tokens: [
+          {
+            line,
+            column,
+            content: "when",
+          },
+        ],
+      };
+      break;
+
     case "skippingUntilNextStatement":
       state.current.tokens.push({
         line,

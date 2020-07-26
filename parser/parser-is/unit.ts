@@ -26,6 +26,7 @@ describe("parserIs", () => {
             onRuleConditionWithAttribute: jasmine.createSpy(
               "onRuleConditionWithAttribute"
             ),
+            onRuleCreate: jasmine.createSpy("onRuleCreate"),
             onSyntaxError: jasmine.createSpy("onSyntaxError"),
             onEof: jasmine.createSpy("onEof"),
           },
@@ -87,6 +88,10 @@ describe("parserIs", () => {
       expect(state().next.onRuleConditionWithAttribute).not.toHaveBeenCalled();
     });
 
+    it("does not report a rule create", () => {
+      expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+    });
+
     it("does not report a syntax error", () => {
       expect(state().next.onSyntaxError).not.toHaveBeenCalled();
     });
@@ -142,6 +147,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -215,6 +224,10 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -273,6 +286,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -345,6 +362,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -420,6 +441,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("reports one syntax error", () => {
@@ -499,6 +524,10 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("reports one syntax error", () => {
         expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
       });
@@ -570,6 +599,10 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -627,6 +660,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("does not report a syntax error", () => {
@@ -694,6 +731,10 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -756,6 +797,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("does not report a syntax error", () => {
@@ -836,6 +881,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("does not report a syntax error", () => {
@@ -924,6 +973,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("does not report a syntax error", () => {
@@ -1022,6 +1075,10 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -1115,6 +1172,71 @@ describe("parserIs", () => {
         ).not.toHaveBeenCalled();
       });
 
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  when(
+    "expecting the name of a rule's create",
+    {
+      type: "ruleExpectingCreate",
+      name: "Test Name",
+    },
+    (state) => {
+      it("waits for the next statement", () => {
+        expect(state().current).toEqual({
+          type: "skippingUntilNextStatement",
+          syntaxErrorType: "expectedStatement",
+          tokens: [
+            {
+              line: 37,
+              column: 148,
+              content: "is",
+            },
+          ],
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
       it("does not report a syntax error", () => {
         expect(state().next.onSyntaxError).not.toHaveBeenCalled();
       });
@@ -1202,6 +1324,10 @@ describe("parserIs", () => {
         expect(
           state().next.onRuleConditionWithAttribute
         ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
       });
 
       it("does not report a syntax error", () => {

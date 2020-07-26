@@ -278,6 +278,14 @@ export const parserGlobal = <TNextState>(
       };
       break;
 
+    case "ruleExpectingCreate":
+      state.current = {
+        type: "globalExpectingName",
+        globalLine: line,
+        globalColumn: column,
+      };
+      break;
+
     case "skippingUntilNextStatement":
       state.next.onSyntaxError(
         state.next.state,

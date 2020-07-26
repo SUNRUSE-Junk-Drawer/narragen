@@ -278,6 +278,14 @@ export const parserAttribute = <TNextState>(
       };
       break;
 
+    case "ruleExpectingCreate":
+      state.current = {
+        type: "attributeExpectingName",
+        attributeLine: line,
+        attributeColumn: column,
+      };
+      break;
+
     case "skippingUntilNextStatement":
       state.next.onSyntaxError(
         state.next.state,

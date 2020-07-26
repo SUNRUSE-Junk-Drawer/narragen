@@ -131,6 +131,10 @@ export type ParserCurrentState =
       readonly entityCOrAttributeC: string;
     }
   | {
+      readonly type: "ruleExpectingCreate";
+      readonly name: string;
+    }
+  | {
       readonly type: "skippingUntilNextStatement";
       readonly syntaxErrorType: ParserSyntaxErrorType;
       readonly tokens: ParserSyntaxErrorToken[];

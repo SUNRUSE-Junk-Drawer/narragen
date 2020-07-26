@@ -344,6 +344,20 @@ export const parserIs = <TNextState>(
       };
       break;
 
+    case "ruleExpectingCreate":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedStatement",
+        tokens: [
+          {
+            line,
+            column,
+            content: "is",
+          },
+        ],
+      };
+      break;
+
     case "skippingUntilNextStatement":
       state.current.tokens.push({
         line,
