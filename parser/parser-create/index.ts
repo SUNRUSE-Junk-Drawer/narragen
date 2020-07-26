@@ -351,6 +351,204 @@ export const parserCreate = <TNextState>(
       };
       break;
 
+    case "ruleSetExpectingEntityA":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedLocal",
+        tokens: [
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingAttributeA":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedAttribute",
+        tokens: [
+          {
+            line: state.current.entityALine,
+            column: state.current.entityAColumn,
+            content: state.current.entityA,
+          },
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingTo":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedTo",
+        tokens: [
+          {
+            line: state.current.entityALine,
+            column: state.current.entityAColumn,
+            content: state.current.entityA,
+          },
+          {
+            line: state.current.attributeALine,
+            column: state.current.attributeAColumn,
+            content: state.current.attributeA,
+          },
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingEntityB":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedAttribute",
+        tokens: [
+          {
+            line: state.current.entityALine,
+            column: state.current.entityAColumn,
+            content: state.current.entityA,
+          },
+          {
+            line: state.current.attributeALine,
+            column: state.current.attributeAColumn,
+            content: state.current.attributeA,
+          },
+          {
+            line: state.current.toLine,
+            column: state.current.toColumn,
+            content: "to",
+          },
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingAttributeBOrEntityC":
+      state.next.onRuleSet(
+        state.next.state,
+        state.current.name,
+        state.current.entityALine,
+        state.current.entityAColumn,
+        state.current.entityA,
+        state.current.attributeALine,
+        state.current.attributeAColumn,
+        state.current.attributeA,
+        state.current.toLine,
+        state.current.toColumn,
+        state.current.entityBLine,
+        state.current.entityBColumn,
+        state.current.entityB
+      );
+
+      state.current = {
+        type: "ruleExpectingCreate",
+        name: state.current.name,
+      };
+
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedAttributeOrTo",
+        tokens: [
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingEntityCOrAttributeC":
+      state.next.onRuleSetWithAttribute(
+        state.next.state,
+        state.current.name,
+        state.current.entityALine,
+        state.current.entityAColumn,
+        state.current.entityA,
+        state.current.attributeALine,
+        state.current.attributeAColumn,
+        state.current.attributeA,
+        state.current.toLine,
+        state.current.toColumn,
+        state.current.entityBLine,
+        state.current.entityBColumn,
+        state.current.entityB,
+        state.current.attributeBOrEntityCLine,
+        state.current.attributeBOrEntityCColumn,
+        state.current.attributeBOrEntityC
+      );
+
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedAttributeOrEntity",
+        tokens: [
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
+    case "ruleSetExpectingAttributeCOrTo":
+      state.current = {
+        type: "skippingUntilNextStatement",
+        syntaxErrorType: "expectedAttributeOrTo",
+        tokens: [
+          {
+            line: state.current.entityALine,
+            column: state.current.entityAColumn,
+            content: state.current.entityA,
+          },
+          {
+            line: state.current.attributeALine,
+            column: state.current.attributeAColumn,
+            content: state.current.attributeA,
+          },
+          {
+            line: state.current.toLine,
+            column: state.current.toColumn,
+            content: "to",
+          },
+          {
+            line: state.current.entityBLine,
+            column: state.current.entityBColumn,
+            content: state.current.entityB,
+          },
+          {
+            line: state.current.attributeBOrEntityCLine,
+            column: state.current.attributeBOrEntityCColumn,
+            content: state.current.attributeBOrEntityC,
+          },
+          {
+            line: state.current.entityCOrAttributeCLine,
+            column: state.current.entityCOrAttributeCColumn,
+            content: state.current.entityCOrAttributeC,
+          },
+          {
+            line,
+            column,
+            content: "create",
+          },
+        ],
+      };
+      break;
+
     case "skippingUntilNextStatement":
       state.current.tokens.push({
         line,

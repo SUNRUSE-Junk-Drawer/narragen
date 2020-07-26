@@ -5,6 +5,8 @@ export type ParserSyntaxErrorType =
   | "expectedLocal"
   | "expectedAttribute"
   | "expectedIs"
+  | "expectedTo"
   | "expectedAttributeOrEntity"
   | "expectedGlobalOrLocal"
-  | "expectedAttributeOrIs";
+  | "expectedAttributeOrIs"
+  | "expectedAttributeOrTo";

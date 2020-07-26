@@ -144,7 +144,6 @@ export const parserName = <TNextState>(
       break;
 
     case "ruleConditionExpectingIs":
-    default:
       state.current = {
         type: "skippingUntilNextStatement",
         syntaxErrorType: "expectedIs",

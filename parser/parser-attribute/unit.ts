@@ -1328,6 +1328,643 @@ describe("parserAttribute", () => {
   );
 
   when(
+    "expecting a rule set's first entity",
+    {
+      type: "ruleSetExpectingEntityA",
+      name: "Test Name",
+      setLine: 4,
+      setColumn: 19,
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  when(
+    "expecting a rule set's first attribute",
+    {
+      type: "ruleSetExpectingAttributeA",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("reports one syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
+          "Test Next State",
+          "expectedAttribute",
+          [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+          ]
+        );
+      });
+    }
+  );
+
+  when(
+    'expecting the rule set\'s "to"',
+    {
+      type: "ruleSetExpectingTo",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+      attributeALine: 36,
+      attributeAColumn: 7,
+      attributeA: "Test Attribute A",
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("reports one syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
+          "Test Next State",
+          "expectedTo",
+          [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+          ]
+        );
+      });
+    }
+  );
+
+  when(
+    "expecting a rule set's second entity",
+    {
+      type: "ruleSetExpectingEntityB",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+      attributeALine: 36,
+      attributeAColumn: 7,
+      attributeA: "Test Attribute A",
+      toLine: 43,
+      toColumn: 72,
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("reports one syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
+          "Test Next State",
+          "expectedAttribute",
+          [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+            {
+              line: 43,
+              column: 72,
+              content: "to",
+            },
+          ]
+        );
+      });
+    }
+  );
+
+  when(
+    "expecting a rule set's second attribute or following entity",
+    {
+      type: "ruleSetExpectingAttributeBOrEntityC",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+      attributeALine: 36,
+      attributeAColumn: 7,
+      attributeA: "Test Attribute A",
+      toLine: 43,
+      toColumn: 72,
+      entityBLine: 48,
+      entityBColumn: 3,
+      entityB: "Test Entity B",
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("reports one rule condition", () => {
+        expect(state().next.onRuleCondition).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule condition", () => {
+        expect(state().next.onRuleCondition).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B"
+        );
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  when(
+    "expecting a rule set's following entity or attribute",
+    {
+      type: "ruleSetExpectingEntityCOrAttributeC",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+      attributeALine: 36,
+      attributeAColumn: 7,
+      attributeA: "Test Attribute A",
+      toLine: 43,
+      toColumn: 72,
+      entityBLine: 48,
+      entityBColumn: 3,
+      entityB: "Test Entity B",
+      attributeBOrEntityCLine: 56,
+      attributeBOrEntityCColumn: 11,
+      attributeBOrEntityC: "Test Attribute B Or Entity C",
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("reports one rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledTimes(
+          1
+        );
+      });
+
+      it("reports the expected rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B",
+          56,
+          11,
+          "Test Attribute B Or Entity C"
+        );
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a syntax error", () => {
+        expect(state().next.onSyntaxError).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  when(
+    'expecting a rule set\'s following attribute or "to"',
+    {
+      type: "ruleSetExpectingAttributeCOrTo",
+      name: "Test Name",
+      entityALine: 20,
+      entityAColumn: 15,
+      entityA: "Test Entity A",
+      attributeALine: 36,
+      attributeAColumn: 7,
+      attributeA: "Test Attribute A",
+      toLine: 43,
+      toColumn: 72,
+      entityBLine: 48,
+      entityBColumn: 3,
+      entityB: "Test Entity B",
+      attributeBOrEntityCLine: 56,
+      attributeBOrEntityCColumn: 11,
+      attributeBOrEntityC: "Test Attribute B Or Entity C",
+      entityCOrAttributeCLine: 64,
+      entityCOrAttributeCColumn: 24,
+      entityCOrAttributeC: "Test Entity C Or Attribute C",
+    },
+    (state) => {
+      it("expects a name for the attribute", () => {
+        expect(state().current).toEqual({
+          type: "attributeExpectingName",
+          attributeLine: 37,
+          attributeColumn: 148,
+        });
+      });
+
+      it("does not report a global", () => {
+        expect(state().next.onGlobal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a global's initializer", () => {
+        expect(state().next.onGlobalInitializer).not.toHaveBeenCalled();
+      });
+
+      it("does not report an attribute", () => {
+        expect(state().next.onAttribute).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule", () => {
+        expect(state().next.onRule).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule local", () => {
+        expect(state().next.onRuleLocal).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition", () => {
+        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule condition with an attribute", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule create", () => {
+        expect(state().next.onRuleCreate).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set", () => {
+        expect(state().next.onRuleSet).not.toHaveBeenCalled();
+      });
+
+      it("does not report a rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      });
+
+      it("reports one syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected syntax error", () => {
+        expect(state().next.onSyntaxError).toHaveBeenCalledWith(
+          "Test Next State",
+          "expectedAttributeOrTo",
+          [
+            {
+              line: 20,
+              column: 15,
+              content: "Test Entity A",
+            },
+            {
+              line: 36,
+              column: 7,
+              content: "Test Attribute A",
+            },
+            {
+              line: 43,
+              column: 72,
+              content: "to",
+            },
+            {
+              line: 48,
+              column: 3,
+              content: "Test Entity B",
+            },
+            {
+              line: 56,
+              column: 11,
+              content: "Test Attribute B Or Entity C",
+            },
+            {
+              line: 64,
+              column: 24,
+              content: "Test Entity C Or Attribute C",
+            },
+          ]
+        );
+      });
+    }
+  );
+
+  when(
     "skipping until the next statement",
     {
       type: "skippingUntilNextStatement",

@@ -135,6 +135,95 @@ export type ParserCurrentState =
       readonly name: string;
     }
   | {
+      readonly type: "ruleSetExpectingEntityA";
+      readonly name: string;
+      readonly setLine: number;
+      readonly setColumn: number;
+    }
+  | {
+      readonly type: "ruleSetExpectingAttributeA";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+    }
+  | {
+      readonly type: "ruleSetExpectingTo";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+      readonly attributeALine: number;
+      readonly attributeAColumn: number;
+      readonly attributeA: string;
+    }
+  | {
+      readonly type: "ruleSetExpectingEntityB";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+      readonly attributeALine: number;
+      readonly attributeAColumn: number;
+      readonly attributeA: string;
+      readonly toLine: number;
+      readonly toColumn: number;
+    }
+  | {
+      readonly type: "ruleSetExpectingAttributeBOrEntityC";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+      readonly attributeALine: number;
+      readonly attributeAColumn: number;
+      readonly attributeA: string;
+      readonly toLine: number;
+      readonly toColumn: number;
+      readonly entityBLine: number;
+      readonly entityBColumn: number;
+      readonly entityB: string;
+    }
+  | {
+      readonly type: "ruleSetExpectingEntityCOrAttributeC";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+      readonly attributeALine: number;
+      readonly attributeAColumn: number;
+      readonly attributeA: string;
+      readonly toLine: number;
+      readonly toColumn: number;
+      readonly entityBLine: number;
+      readonly entityBColumn: number;
+      readonly entityB: string;
+      readonly attributeBOrEntityCLine: number;
+      readonly attributeBOrEntityCColumn: number;
+      readonly attributeBOrEntityC: string;
+    }
+  | {
+      readonly type: "ruleSetExpectingAttributeCOrTo";
+      readonly name: string;
+      readonly entityALine: number;
+      readonly entityAColumn: number;
+      readonly entityA: string;
+      readonly attributeALine: number;
+      readonly attributeAColumn: number;
+      readonly attributeA: string;
+      readonly toLine: number;
+      readonly toColumn: number;
+      readonly entityBLine: number;
+      readonly entityBColumn: number;
+      readonly entityB: string;
+      readonly attributeBOrEntityCLine: number;
+      readonly attributeBOrEntityCColumn: number;
+      readonly attributeBOrEntityC: string;
+      readonly entityCOrAttributeCLine: number;
+      readonly entityCOrAttributeCColumn: number;
+      readonly entityCOrAttributeC: string;
+    }
+  | {
       readonly type: "skippingUntilNextStatement";
       readonly syntaxErrorType: ParserSyntaxErrorType;
       readonly tokens: ParserSyntaxErrorToken[];
