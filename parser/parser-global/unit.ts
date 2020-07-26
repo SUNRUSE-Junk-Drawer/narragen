@@ -4,9 +4,6 @@ import { parserGlobal } from ".";
 
 describe("parserGlobal", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     description: string,
@@ -19,7 +16,7 @@ describe("parserGlobal", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -34,7 +31,7 @@ describe("parserGlobal", () => {
           },
         };
 
-        parserGlobal(state, line, column);
+        parserGlobal(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -51,8 +48,8 @@ describe("parserGlobal", () => {
     it("expects a name for the global", () => {
       expect(state().current).toEqual({
         type: "globalExpectingName",
-        globalLine: line,
-        globalColumn: column,
+        globalLine: 37,
+        globalColumn: 148,
       });
     });
 
@@ -100,8 +97,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -165,8 +162,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -219,8 +216,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -285,8 +282,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -354,8 +351,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -425,8 +422,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -490,8 +487,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -543,8 +540,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -597,8 +594,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -668,8 +665,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -746,8 +743,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -832,8 +829,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -915,8 +912,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -1004,8 +1001,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 
@@ -1111,8 +1108,8 @@ describe("parserGlobal", () => {
       it("expects a name for the global", () => {
         expect(state().current).toEqual({
           type: "globalExpectingName",
-          globalLine: line,
-          globalColumn: column,
+          globalLine: 37,
+          globalColumn: 148,
         });
       });
 

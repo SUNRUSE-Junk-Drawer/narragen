@@ -4,9 +4,6 @@ import { parserAttribute } from ".";
 
 describe("parserAttribute", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     description: string,
@@ -19,7 +16,7 @@ describe("parserAttribute", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -34,7 +31,7 @@ describe("parserAttribute", () => {
           },
         };
 
-        parserAttribute(state, line, column);
+        parserAttribute(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -51,8 +48,8 @@ describe("parserAttribute", () => {
     it("expects a name for the attribute", () => {
       expect(state().current).toEqual({
         type: "attributeExpectingName",
-        attributeLine: line,
-        attributeColumn: column,
+        attributeLine: 37,
+        attributeColumn: 148,
       });
     });
 
@@ -100,8 +97,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -165,8 +162,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -219,8 +216,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -285,8 +282,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -354,8 +351,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -425,8 +422,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -490,8 +487,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -543,8 +540,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -597,8 +594,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -668,8 +665,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -746,8 +743,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -832,8 +829,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -915,8 +912,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -1004,8 +1001,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 
@@ -1111,8 +1108,8 @@ describe("parserAttribute", () => {
       it("expects a name for the attribute", () => {
         expect(state().current).toEqual({
           type: "attributeExpectingName",
-          attributeLine: line,
-          attributeColumn: column,
+          attributeLine: 37,
+          attributeColumn: 148,
         });
       });
 

@@ -4,9 +4,6 @@ import { parserWhen } from ".";
 
 describe("parserWhen", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     description: string,
@@ -19,7 +16,7 @@ describe("parserWhen", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -34,7 +31,7 @@ describe("parserWhen", () => {
           },
         };
 
-        parserWhen(state, line, column);
+        parserWhen(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -54,8 +51,8 @@ describe("parserWhen", () => {
         syntaxErrorType: "expectedStatement",
         tokens: [
           {
-            line,
-            column,
+            line: 37,
+            column: 148,
             content: "when",
           },
         ],
@@ -109,8 +106,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -180,8 +177,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -240,8 +237,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -312,8 +309,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -387,8 +384,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -464,8 +461,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -533,8 +530,8 @@ describe("parserWhen", () => {
         expect(state().current).toEqual({
           type: "ruleConditionExpectingEntityA",
           name: "Test Name",
-          whenLine: line,
-          whenColumn: column,
+          whenLine: 37,
+          whenColumn: 148,
         });
       });
 
@@ -589,8 +586,8 @@ describe("parserWhen", () => {
           syntaxErrorType: "expectedLocal",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -654,8 +651,8 @@ describe("parserWhen", () => {
               content: "Test Entity A",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -727,8 +724,8 @@ describe("parserWhen", () => {
               content: "Test Attribute A",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -807,8 +804,8 @@ describe("parserWhen", () => {
               content: "is",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -895,8 +892,8 @@ describe("parserWhen", () => {
               content: "Test Entity B",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -991,8 +988,8 @@ describe("parserWhen", () => {
               content: "Test Attribute B Or Entity C",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -1095,8 +1092,8 @@ describe("parserWhen", () => {
               content: "Test Entity C Or Attribute C",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],
@@ -1184,8 +1181,8 @@ describe("parserWhen", () => {
               content: "Test Content C",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "when",
             },
           ],

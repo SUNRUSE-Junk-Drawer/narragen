@@ -4,9 +4,6 @@ import { parserIs } from ".";
 
 describe("parserIs", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     description: string,
@@ -19,7 +16,7 @@ describe("parserIs", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -34,7 +31,7 @@ describe("parserIs", () => {
           },
         };
 
-        parserIs(state, line, column);
+        parserIs(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -54,8 +51,8 @@ describe("parserIs", () => {
         syntaxErrorType: "expectedStatement",
         tokens: [
           {
-            line,
-            column,
+            line: 37,
+            column: 148,
             content: "is",
           },
         ],
@@ -109,8 +106,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -180,8 +177,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -240,8 +237,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -312,8 +309,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -387,8 +384,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -464,8 +461,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -535,8 +532,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedStatement",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -594,8 +591,8 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedLocal",
           tokens: [
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -659,8 +656,8 @@ describe("parserIs", () => {
               content: "Test Entity A",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -726,8 +723,8 @@ describe("parserIs", () => {
           attributeALine: 36,
           attributeAColumn: 7,
           attributeA: "Test Attribute A",
-          isLine: line,
-          isColumn: column,
+          isLine: 37,
+          isColumn: 148,
         });
       });
 
@@ -803,8 +800,8 @@ describe("parserIs", () => {
               content: "is",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -891,8 +888,8 @@ describe("parserIs", () => {
               content: "Test Entity B",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -987,8 +984,8 @@ describe("parserIs", () => {
               content: "Test Attribute B Or Entity C",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],
@@ -1065,8 +1062,8 @@ describe("parserIs", () => {
           attributeALine: 64,
           attributeAColumn: 24,
           attributeA: "Test Entity C Or Attribute C",
-          isLine: line,
-          isColumn: column,
+          isLine: 37,
+          isColumn: 148,
         });
       });
 
@@ -1169,8 +1166,8 @@ describe("parserIs", () => {
               content: "Test Content C",
             },
             {
-              line,
-              column,
+              line: 37,
+              column: 148,
               content: "is",
             },
           ],

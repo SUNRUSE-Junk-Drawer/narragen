@@ -3,8 +3,6 @@ import { classifierToken } from ".";
 
 describe("classifierToken", () => {
   type TestNextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     content: string,
@@ -27,7 +25,7 @@ describe("classifierToken", () => {
           },
         };
 
-        classifierToken(state, line, column, content);
+        classifierToken(state, 37, 148, content);
       });
 
       it("does not report eof", () => {
@@ -46,8 +44,8 @@ describe("classifierToken", () => {
     it('reports the expected "global" token', () => {
       expect(state().next.onGlobal).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column
+        37,
+        148
       );
     });
 
@@ -84,8 +82,8 @@ describe("classifierToken", () => {
     it('reports the expected "attribute" token', () => {
       expect(state().next.onAttribute).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column
+        37,
+        148
       );
     });
 
@@ -122,8 +120,8 @@ describe("classifierToken", () => {
     it('reports the expected "rule" token', () => {
       expect(state().next.onRule).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column
+        37,
+        148
       );
     });
 
@@ -160,8 +158,8 @@ describe("classifierToken", () => {
     it('reports the expected "when" token', () => {
       expect(state().next.onWhen).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column
+        37,
+        148
       );
     });
 
@@ -198,8 +196,8 @@ describe("classifierToken", () => {
     it('reports the expected "is" token', () => {
       expect(state().next.onIs).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column
+        37,
+        148
       );
     });
 
@@ -236,8 +234,8 @@ describe("classifierToken", () => {
     it('reports the expected "is" token', () => {
       expect(state().next.onName).toHaveBeenCalledWith(
         "Test Next State",
-        line,
-        column,
+        37,
+        148,
         "anyTHINGwhichISnotAkeyword"
       );
     });

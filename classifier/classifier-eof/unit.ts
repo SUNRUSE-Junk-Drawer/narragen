@@ -3,8 +3,6 @@ import { classifierEof } from ".";
 
 describe("classifierToken", () => {
   type TestNextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   let state: ClassifierState<TestNextState>;
 
@@ -22,7 +20,7 @@ describe("classifierToken", () => {
       },
     };
 
-    classifierEof(state, line, column);
+    classifierEof(state, 37, 148);
   });
 
   it('does not report any "global" tokens', () => {
@@ -54,10 +52,6 @@ describe("classifierToken", () => {
   });
 
   it("reports the expected eof", () => {
-    expect(state.next.onEof).toHaveBeenCalledWith(
-      "Test Next State",
-      line,
-      column
-    );
+    expect(state.next.onEof).toHaveBeenCalledWith("Test Next State", 37, 148);
   });
 });

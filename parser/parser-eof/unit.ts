@@ -4,9 +4,6 @@ import { parserEof } from ".";
 
 describe("parserEof", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
 
   const when = (
     description: string,
@@ -19,7 +16,7 @@ describe("parserEof", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -34,7 +31,7 @@ describe("parserEof", () => {
           },
         };
 
-        parserEof(state, line, column);
+        parserEof(state, 37, 148);
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -43,6 +40,12 @@ describe("parserEof", () => {
         expect(
           (state as ParserState<NextState>).next.onEof
         ).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected eof", () => {
+        expect(
+          (state as ParserState<NextState>).next.onEof
+        ).toHaveBeenCalledWith("Test Next State", 37, 148);
       });
     });
   };

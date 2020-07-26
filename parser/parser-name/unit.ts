@@ -4,10 +4,6 @@ import { parserName } from ".";
 
 describe("parserName", () => {
   type NextState = "Test Next State";
-  const nextState: NextState = "Test Next State";
-  const line = 37;
-  const column = 148;
-  const name = "teSTnaME";
 
   const when = (
     description: string,
@@ -20,7 +16,7 @@ describe("parserName", () => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
           next: {
-            state: nextState,
+            state: "Test Next State",
             onGlobal: jasmine.createSpy("onGlobal"),
             onGlobalInitializer: jasmine.createSpy("onGlobalInitializer"),
             onAttribute: jasmine.createSpy("onAttribute"),
@@ -35,7 +31,7 @@ describe("parserName", () => {
           },
         };
 
-        parserName(state, line, column, name);
+        parserName(state, 37, 148, "teSTnaME");
       });
 
       assertionCallback(() => state as ParserState<NextState>);
@@ -55,9 +51,9 @@ describe("parserName", () => {
         syntaxErrorType: "expectedStatement",
         tokens: [
           {
-            line,
-            column,
-            content: name,
+            line: 37,
+            column: 148,
+            content: "teSTnaME",
           },
         ],
       });
@@ -107,7 +103,7 @@ describe("parserName", () => {
       it("expects an attribute for the first initializer", () => {
         expect(state().current).toEqual({
           type: "globalExpectingAttribute",
-          name,
+          name: "teSTnaME",
         });
       });
 
@@ -120,9 +116,9 @@ describe("parserName", () => {
           "Test Next State",
           20,
           15,
-          line,
-          column,
-          name
+          37,
+          148,
+          "teSTnaME"
         );
       });
 
@@ -169,9 +165,9 @@ describe("parserName", () => {
         expect(state().current).toEqual({
           type: "globalExpectingInitializer",
           name: "Test Name",
-          attributeLine: line,
-          attributeColumn: column,
-          attribute: name,
+          attributeLine: 37,
+          attributeColumn: 148,
+          attribute: "teSTnaME",
         });
       });
 
@@ -243,9 +239,9 @@ describe("parserName", () => {
           20,
           15,
           "Test Attribute",
-          line,
-          column,
-          name
+          37,
+          148,
+          "teSTnaME"
         );
       });
 
@@ -290,9 +286,9 @@ describe("parserName", () => {
           type: "attributeExpectingInitializer",
           attributeLine: 20,
           attributeColumn: 15,
-          nameLine: line,
-          nameColumn: column,
-          name,
+          nameLine: 37,
+          nameColumn: 148,
+          name: "teSTnaME",
         });
       });
 
@@ -369,9 +365,9 @@ describe("parserName", () => {
           37,
           6,
           "Test Name",
-          line,
-          column,
-          name
+          37,
+          148,
+          "teSTnaME"
         );
       });
 
@@ -410,7 +406,7 @@ describe("parserName", () => {
       it("expects a name for the first local", () => {
         expect(state().current).toEqual({
           type: "ruleExpectingLocal",
-          name,
+          name: "teSTnaME",
         });
       });
 
@@ -435,9 +431,9 @@ describe("parserName", () => {
           "Test Next State",
           20,
           15,
-          line,
-          column,
-          name
+          37,
+          148,
+          "teSTnaME"
         );
       });
 
@@ -499,9 +495,9 @@ describe("parserName", () => {
         expect(state().next.onRuleLocal).toHaveBeenCalledWith(
           "Test Next State",
           "Test Name",
-          line,
-          column,
-          name
+          37,
+          148,
+          "teSTnaME"
         );
       });
 
@@ -534,9 +530,9 @@ describe("parserName", () => {
         expect(state().current).toEqual({
           type: "ruleConditionExpectingAttributeA",
           name: "Test Name",
-          entityALine: line,
-          entityAColumn: column,
-          entityA: name,
+          entityALine: 37,
+          entityAColumn: 148,
+          entityA: "teSTnaME",
         });
       });
 
@@ -593,9 +589,9 @@ describe("parserName", () => {
           entityALine: 20,
           entityAColumn: 15,
           entityA: "Test Entity A",
-          attributeALine: line,
-          attributeAColumn: column,
-          attributeA: name,
+          attributeALine: 37,
+          attributeAColumn: 148,
+          attributeA: "teSTnaME",
         });
       });
 
@@ -664,9 +660,9 @@ describe("parserName", () => {
               content: "Test Attribute A",
             },
             {
-              line,
-              column,
-              content: name,
+              line: 37,
+              column: 148,
+              content: "teSTnaME",
             },
           ],
         });
@@ -735,9 +731,9 @@ describe("parserName", () => {
           attributeA: "Test Attribute A",
           isLine: 43,
           isColumn: 72,
-          entityBLine: line,
-          entityBColumn: column,
-          entityB: name,
+          entityBLine: 37,
+          entityBColumn: 148,
+          entityB: "teSTnaME",
         });
       });
 
@@ -810,9 +806,9 @@ describe("parserName", () => {
           entityBLine: 48,
           entityBColumn: 3,
           entityB: "Test Entity B",
-          attributeBOrEntityCLine: line,
-          attributeBOrEntityCColumn: column,
-          attributeBOrEntityC: name,
+          attributeBOrEntityCLine: 37,
+          attributeBOrEntityCColumn: 148,
+          attributeBOrEntityC: "teSTnaME",
         });
       });
 
@@ -891,9 +887,9 @@ describe("parserName", () => {
           attributeBOrEntityCLine: 56,
           attributeBOrEntityCColumn: 11,
           attributeBOrEntityC: "Test Attribute B Or Entity C",
-          entityCOrAttributeCLine: line,
-          entityCOrAttributeCColumn: column,
-          entityCOrAttributeC: name,
+          entityCOrAttributeCLine: 37,
+          entityCOrAttributeCColumn: 148,
+          entityCOrAttributeC: "teSTnaME",
         });
       });
 
@@ -964,9 +960,9 @@ describe("parserName", () => {
           entityALine: 64,
           entityAColumn: 24,
           entityA: "Test Entity C Or Attribute C",
-          attributeALine: line,
-          attributeAColumn: column,
-          attributeA: name,
+          attributeALine: 37,
+          attributeAColumn: 148,
+          attributeA: "teSTnaME",
         });
       });
 
@@ -1072,9 +1068,9 @@ describe("parserName", () => {
               content: "Test Content C",
             },
             {
-              line,
-              column,
-              content: name,
+              line: 37,
+              column: 148,
+              content: "teSTnaME",
             },
           ],
         });
