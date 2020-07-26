@@ -1,9 +1,9 @@
-import { StatementParserCurrentState } from "../statement-parser-current-state";
-import { StatementParserSyntaxErrorType } from "../statement-parser-syntax-error-type";
-import { StatementParserSyntaxErrorToken } from "../statement-parser-syntax-error-token";
+import { ParserCurrentState } from "../parser-current-state";
+import { ParserSyntaxErrorType } from "../parser-syntax-error-type";
+import { ParserSyntaxErrorToken } from "../parser-syntax-error-token";
 
-export type StatementParserState<TNextState> = {
-  current: StatementParserCurrentState;
+export type ParserState<TNextState> = {
+  current: ParserCurrentState;
   readonly next: {
     readonly state: TNextState;
     readonly onGlobal: (
@@ -85,8 +85,8 @@ export type StatementParserState<TNextState> = {
     ) => void;
     readonly onSyntaxError: (
       state: TNextState,
-      type: StatementParserSyntaxErrorType,
-      tokens: ReadonlyArray<StatementParserSyntaxErrorToken>
+      type: ParserSyntaxErrorType,
+      tokens: ReadonlyArray<ParserSyntaxErrorToken>
     ) => void;
     readonly onEof: (state: TNextState, line: number, column: number) => void;
   };

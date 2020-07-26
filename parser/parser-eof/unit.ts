@@ -1,8 +1,8 @@
-import { StatementParserCurrentState } from "../statement-parser-current-state";
-import { StatementParserState } from "../statement-parser-state";
-import { statementParserEof } from ".";
+import { ParserCurrentState } from "../parser-current-state";
+import { ParserState } from "../parser-state";
+import { parserEof } from ".";
 
-describe("statementParserEof", () => {
+describe("parserEof", () => {
   type NextState = "Test Next State";
   const nextState: NextState = "Test Next State";
   const line = 37;
@@ -10,11 +10,11 @@ describe("statementParserEof", () => {
 
   const when = (
     description: string,
-    current: StatementParserCurrentState,
-    assertionCallback: (state: () => StatementParserState<NextState>) => void
+    current: ParserCurrentState,
+    assertionCallback: (state: () => ParserState<NextState>) => void
   ): void => {
     describe(description, () => {
-      let state: undefined | StatementParserState<NextState>;
+      let state: undefined | ParserState<NextState>;
       beforeAll(() => {
         state = {
           current: JSON.parse(JSON.stringify(current)),
@@ -34,14 +34,14 @@ describe("statementParserEof", () => {
           },
         };
 
-        statementParserEof(state, line, column);
+        parserEof(state, line, column);
       });
 
-      assertionCallback(() => state as StatementParserState<NextState>);
+      assertionCallback(() => state as ParserState<NextState>);
 
       it("reports eof once", () => {
         expect(
-          (state as StatementParserState<NextState>).next.onEof
+          (state as ParserState<NextState>).next.onEof
         ).toHaveBeenCalledTimes(1);
       });
     });

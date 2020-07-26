@@ -1,7 +1,7 @@
-import { StatementParserState } from "../statement-parser-state";
+import { ParserState } from "../parser-state";
 
-export const statementParserToken = <TNextState>(
-  state: StatementParserState<TNextState>,
+export const parserToken = <TNextState>(
+  state: ParserState<TNextState>,
   line: number,
   column: number,
   content: string

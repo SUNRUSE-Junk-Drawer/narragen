@@ -1,7 +1,7 @@
-import { StatementParserSyntaxErrorType } from "../statement-parser-syntax-error-type";
-import { StatementParserSyntaxErrorToken } from "../statement-parser-syntax-error-token";
+import { ParserSyntaxErrorType } from "../parser-syntax-error-type";
+import { ParserSyntaxErrorToken } from "../parser-syntax-error-token";
 
-export type StatementParserCurrentState =
+export type ParserCurrentState =
   | { readonly type: "initial" }
   | {
       readonly type: "globalExpectingName";
@@ -132,6 +132,6 @@ export type StatementParserCurrentState =
     }
   | {
       readonly type: "skippingUntilNextStatement";
-      readonly syntaxErrorType: StatementParserSyntaxErrorType;
-      readonly tokens: StatementParserSyntaxErrorToken[];
+      readonly syntaxErrorType: ParserSyntaxErrorType;
+      readonly tokens: ParserSyntaxErrorToken[];
     };

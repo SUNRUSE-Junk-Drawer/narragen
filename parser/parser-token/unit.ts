@@ -1,8 +1,8 @@
-import { StatementParserCurrentState } from "../statement-parser-current-state";
-import { StatementParserState } from "../statement-parser-state";
-import { statementParserToken } from ".";
+import { ParserCurrentState } from "../parser-current-state";
+import { ParserState } from "../parser-state";
+import { parserToken } from ".";
 
-describe("statementParserToken", () => {
+describe("parserToken", () => {
   type NextState = "Test Next State";
   const nextState: NextState = "Test Next State";
   const line = 37;
@@ -11,23 +11,21 @@ describe("statementParserToken", () => {
 
   const when = (
     description: string,
-    current: StatementParserCurrentState,
-    onGlobal: (state: () => StatementParserState<NextState>) => void,
-    onAttribute: (state: () => StatementParserState<NextState>) => void,
-    onRule: (state: () => StatementParserState<NextState>) => void,
-    onWhen: (state: () => StatementParserState<NextState>) => void,
-    onIs: (state: () => StatementParserState<NextState>) => void,
-    onName: (state: () => StatementParserState<NextState>) => void
+    current: ParserCurrentState,
+    onGlobal: (state: () => ParserState<NextState>) => void,
+    onAttribute: (state: () => ParserState<NextState>) => void,
+    onRule: (state: () => ParserState<NextState>) => void,
+    onWhen: (state: () => ParserState<NextState>) => void,
+    onIs: (state: () => ParserState<NextState>) => void,
+    onName: (state: () => ParserState<NextState>) => void
   ): void => {
     describe(description, () => {
       const given = (
         token: string,
-        assertionCallback: (
-          state: () => StatementParserState<NextState>
-        ) => void
+        assertionCallback: (state: () => ParserState<NextState>) => void
       ) => {
         describe(token.toLowerCase(), () => {
-          let state: undefined | StatementParserState<NextState>;
+          let state: undefined | ParserState<NextState>;
           beforeAll(() => {
             state = {
               current: JSON.parse(JSON.stringify(current)),
@@ -47,14 +45,14 @@ describe("statementParserToken", () => {
               },
             };
 
-            statementParserToken(state, line, column, token);
+            parserToken(state, line, column, token);
           });
 
-          assertionCallback(() => state as StatementParserState<NextState>);
+          assertionCallback(() => state as ParserState<NextState>);
 
           it("does not report eof", () => {
             expect(
-              (state as StatementParserState<NextState>).next.onEof
+              (state as ParserState<NextState>).next.onEof
             ).not.toHaveBeenCalled();
           });
         });

@@ -1,4 +1,4 @@
-export type StatementParserSyntaxErrorType =
+export type ParserSyntaxErrorType =
   | "expectedStatement"
   | "expectedName"
   | "expectedGlobal"
