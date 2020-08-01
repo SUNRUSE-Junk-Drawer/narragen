@@ -1015,26 +1015,6 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedAttributeOrEntity",
           tokens: [
             {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "is",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
               line: 37,
               column: 148,
               content: "is",
@@ -1063,8 +1043,26 @@ describe("parserIs", () => {
         expect(state().next.onRuleLocal).not.toHaveBeenCalled();
       });
 
-      it("does not report a rule condition", () => {
-        expect(state().next.onRuleCondition).not.toHaveBeenCalled();
+      it("reports one rule condition", () => {
+        expect(state().next.onRuleCondition).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule condition", () => {
+        expect(state().next.onRuleCondition).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B"
+        );
       });
 
       it("does not report a rule condition with an attribute", () => {
@@ -1118,31 +1116,6 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedAttributeOrEntity",
           tokens: [
             {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "is",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
-              line: 56,
-              column: 11,
-              content: "Test Attribute B Or Entity C",
-            },
-            {
               line: 37,
               column: 148,
               content: "is",
@@ -1175,10 +1148,31 @@ describe("parserIs", () => {
         expect(state().next.onRuleCondition).not.toHaveBeenCalled();
       });
 
-      it("does not report a rule condition with an attribute", () => {
-        expect(
-          state().next.onRuleConditionWithAttribute
-        ).not.toHaveBeenCalled();
+      it("reports one rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledTimes(
+          1
+        );
+      });
+
+      it("reports the expected rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B",
+          56,
+          11,
+          "Test Attribute B Or Entity C"
+        );
       });
 
       it("does not report a rule create", () => {
@@ -1930,31 +1924,6 @@ describe("parserIs", () => {
           syntaxErrorType: "expectedAttributeOrTo",
           tokens: [
             {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "to",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
-              line: 56,
-              column: 11,
-              content: "Test Attribute B Or Entity C",
-            },
-            {
               line: 64,
               column: 24,
               content: "Test Entity C Or Attribute C",
@@ -2006,8 +1975,29 @@ describe("parserIs", () => {
         expect(state().next.onRuleSet).not.toHaveBeenCalled();
       });
 
-      it("does not report a rule set with an attribute", () => {
-        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      it("reports one rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B",
+          56,
+          11,
+          "Test Attribute B Or Entity C"
+        );
       });
 
       it("does not report a syntax error", () => {

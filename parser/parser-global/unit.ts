@@ -1201,10 +1201,31 @@ describe("parserGlobal", () => {
         expect(state().next.onRuleCondition).not.toHaveBeenCalled();
       });
 
-      it("does not report a rule condition with an attribute", () => {
-        expect(
-          state().next.onRuleConditionWithAttribute
-        ).not.toHaveBeenCalled();
+      it("reports one rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledTimes(
+          1
+        );
+      });
+
+      it("reports the expected rule condition with an attribute", () => {
+        expect(state().next.onRuleConditionWithAttribute).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B",
+          56,
+          11,
+          "Test Attribute B Or Entity C"
+        );
       });
 
       it("does not report a rule create", () => {
@@ -1229,37 +1250,18 @@ describe("parserGlobal", () => {
           "expectedAttributeOrIs",
           [
             {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "is",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
-              line: 56,
-              column: 11,
-              content: "Test Attribute B Or Entity C",
-            },
-            {
               line: 64,
               column: 24,
               content: "Test Entity C Or Attribute C",
             },
           ]
         );
+      });
+
+      it("reports a rule condition with an attribute before reporting a syntax error", () => {
+        expect(
+          state().next.onRuleConditionWithAttribute
+        ).toHaveBeenCalledBefore(state().next.onSyntaxError);
       });
     }
   );
@@ -1915,8 +1917,29 @@ describe("parserGlobal", () => {
         expect(state().next.onRuleSet).not.toHaveBeenCalled();
       });
 
-      it("does not report a rule set with an attribute", () => {
-        expect(state().next.onRuleSetWithAttribute).not.toHaveBeenCalled();
+      it("reports one rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledTimes(1);
+      });
+
+      it("reports the expected rule set with an attribute", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledWith(
+          "Test Next State",
+          "Test Name",
+          20,
+          15,
+          "Test Entity A",
+          36,
+          7,
+          "Test Attribute A",
+          43,
+          72,
+          48,
+          3,
+          "Test Entity B",
+          56,
+          11,
+          "Test Attribute B Or Entity C"
+        );
       });
 
       it("reports one syntax error", () => {
@@ -1929,36 +1952,17 @@ describe("parserGlobal", () => {
           "expectedAttributeOrTo",
           [
             {
-              line: 20,
-              column: 15,
-              content: "Test Entity A",
-            },
-            {
-              line: 36,
-              column: 7,
-              content: "Test Attribute A",
-            },
-            {
-              line: 43,
-              column: 72,
-              content: "to",
-            },
-            {
-              line: 48,
-              column: 3,
-              content: "Test Entity B",
-            },
-            {
-              line: 56,
-              column: 11,
-              content: "Test Attribute B Or Entity C",
-            },
-            {
               line: 64,
               column: 24,
               content: "Test Entity C Or Attribute C",
             },
           ]
+        );
+      });
+
+      it("reports a rule set with an attribute before reporting a syntax error", () => {
+        expect(state().next.onRuleSetWithAttribute).toHaveBeenCalledBefore(
+          state().next.onSyntaxError
         );
       });
     }
